@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>ADM | Nuevo viaje</title>
+</head>
+
+<header>
+    {{> navbar}}
+</header>
+
+<body>
+    <h1>Nuevo viaje para un particular:</h1>
+    {{message}}
+    <div class="nuevoViajeForm">
+        <form action="">
+            <label for="empresaList">Particular</label>
+            <select name="empresaList" id="empresaList">
+                <option value="0">Seleccionar</option>
+                {{#each empresas}}
+                <option value="{{this.id}}">{{this.nombre}}</option>
+                {{/each}}
+            </select>
+            <label for="conLluvia">¿Con lluvia?</label>
+            <input type="checkbox" name="conLluvia" id="conLluvia">
+            <label for="conBulto">¿Con bulto?</label>
+            <input type="checkbox" name="conBulto" id="conBulto">
+            <label for="conDemora">¿Con demora?</label>
+            <input type="checkbox" name="conDemora" id="conDemora">
+            <label for="cadeteList">Cadetes</label>
+            <select name="cadeteList" id="cadeteList">
+                <option value="0">Seleccionar</option>
+                {{#each cadetes}}
+                <option value="{{this.id}}">{{this.nombre}}</option>
+                {{/each}}
+            </select>
+            <label for="total">Total:</label>
+            <input type="number" name="total" id="total" disabled>
+            <label for="subTotal">Subtotal:</label>
+            <input type="number" name="subTotal" id="subTotal" disabled>
+        </form>
+    </div>
+</body>
+<script>
+</script>
+<style>
+    .nuevoViajeForm form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+
+</html>

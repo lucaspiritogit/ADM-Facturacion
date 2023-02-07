@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADM | Viaje creado ok</title>
+</head>
+{{>navbar}}
+
+<body>
+    <h1 style="color: rgb(19, 190, 19)">Viaje creado ok</h1>
+    <div id="json">
+        {{viajeJson}}
+    </div>
+    <pre id="json-data" style="white-space: pre-wrap; font-size: 20px"></pre>
+    <hr>
+    <a href="/empresa/nuevoViajeEmpresa" style="font-size: 40px">> Dar de alta nuevo viaje</a>
+</body>
+<script>
+    let parsedJson = JSON.parse(document.getElementById('json').innerHTML);
+    let prettifyJson = JSON.stringify(parsedJson, null, 4);
+    let jsonData = document.getElementById('json-data');
+    jsonData.innerHTML = prettifyJson;
+
+    let oldJson = document.getElementById('json');
+    oldJson.style.display = 'none';
+</script>
+
+</html>

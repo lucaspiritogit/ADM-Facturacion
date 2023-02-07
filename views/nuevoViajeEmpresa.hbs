@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>ADM | Nuevo viaje</title>
+</head>
+
+<header>
+    {{> navbar}}
+</header>
+
+<body>
+    <h1>Nuevo viaje para empresa:</h1>
+    <div class="nuevoViajeForm" style="display: flex; width: 100%;">
+        <div style="display: flex; flex-direction: column; width: 50%;">
+            <form action=" /viaje" method="POST" id="nuevoViaje">
+                <label>Localidades:</label>
+                <select name="localidad0" id="localidad0">
+                    <option value="0">Seleccionar</option>
+                    {{#each localidades}}
+                    <option value="{{this.id}}">{{this.nombre}} | ${{this.precio}}</option>
+                    {{/each}}
+                </select>
+                <select name="localidad1" id="localidad1">
+                    <option value="0">Seleccionar</option>
+                    {{#each localidades}}
+                    <option value="{{this.id}}">{{this.nombre}} | ${{this.precio}}</option>
+                    {{/each}}
+                </select>
+                <select name="localidad2" id="localidad2">
+                    <option value="0">Seleccionar</option>
+                    {{#each localidades}}
+                    <option value="{{this.id}}">{{this.nombre}} | ${{this.precio}}</option>
+                    {{/each}}
+                </select>
+                <select name="localidad3" id="localidad3">
+                    <option value="0">Seleccionar</option>
+                    {{#each localidades}}
+                    <option value="{{this.id}}">{{this.nombre}} | ${{this.precio}}</option>
+                    {{/each}}
+                </select>
+                <select name="localidad4" id="localidad4">
+                    <option value="0">Seleccionar</option>
+                    {{#each localidades}}
+                    <option value="{{this.id}}">{{this.nombre}} | ${{this.precio}}</option>
+                    {{/each}}
+                </select>
+                <button id="calcularTotal">Calcular precio</button>
+                <label for="destinos">Destinos:</label>
+                <input type="text" id="destino0" name="destino0">
+                <input type="text" id="destino1" name="destino1">
+                <input type="text" id="destino2" name="destino2">
+                <input type="text" id="destino3" name="destino3">
+                <input type="text" id="destino4" name="destino4">
+                <label for="fecha">Fecha:</label>
+                <input type="date" name="fecha" id="fecha" required>
+                <label for="empresa">Empresa</label>
+                <select name="empresa" id="empresa">
+                    <option value="0">Seleccionar</option>
+                    {{#each empresas}}
+                    <option value="{{this.id}}">{{this.nombre}}</option>
+                    {{/each}}
+                </select>
+        </div>
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 50%;">
+            <label for="nombreDelSolicitante">Nombre del solicitante</label>
+            <input type="text" name="nombreDelSolicitante" id="nombreDelSolicitante">
+            <label for="conLluvia">¿Con lluvia?</label>
+            <input type="checkbox" name="conLluvia" id="conLluvia" value="si">
+            <label for="conBulto">¿Con bulto?</label>
+            <input type="checkbox" name="conBulto" id="conBulto" value="si">
+            <label for="conDemora">¿Con demora?</label>
+            <input type="checkbox" name="conDemora" id="conDemora" value="si">
+            <label for="conRegreso">¿Con regreso? </label>
+            <input type="checkbox" name="conRegreso" id="conRegreso" value="si">
+            <label for="cadeteList">Cadete/s</label>
+            <input type="text" name="cadetes" id="cadetes">
+            <label for="peaje1">Peaje 1</label>
+            <input type="number" name="peaje1" id="peaje1" value="0">
+            <label for="peaje2">Peaje 2</label>
+            <input type="number" name="peaje2" id="peaje2" value="0">
+            <label for="peaje3">Peaje 3</label>
+            <input type="number" name="peaje3" id="peaje3" value="0">
+            <br>
+            <label for="subTotal">Subtotal:</label>
+            <input type="number" name="subTotal" id="subTotal" value="0" readonly>
+            <label for="total">Total:</label>
+            <input type="text" name="total" id="total" value="0" readonly>
+            <button id="submitViaje" class="m-2 btn btn-primary" type="submit">Registrar viaje</button>
+        </div>
+        </form>
+    </div>
+</body>
+<script src="/js/nuevoViajeParaEmpresa.js"></script>
+<script>
+
+</script>
+<style>
+    .nuevoViajeForm form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+
+</html>
