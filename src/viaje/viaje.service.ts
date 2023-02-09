@@ -81,7 +81,6 @@ export class ViajeService {
     viaje.destino4 = createViajeDto.destino4;
     viaje.conLluvia = createViajeDto.conLluvia;
     viaje.conBulto = createViajeDto.conBulto;
-    viaje.conDemora = createViajeDto.conDemora;
     viaje.conRegreso = createViajeDto.conRegreso;
     viaje.saleDelDomicilio = createViajeDto.saleDelDomicilio;
     viaje.total = parseInt(createViajeDto.total);

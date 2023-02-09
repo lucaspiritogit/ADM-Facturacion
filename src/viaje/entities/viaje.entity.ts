@@ -64,9 +64,6 @@ export class Viaje {
   conBulto: string;
 
   @Column()
-  conDemora: string;
-
-  @Column()
   conRegreso: string;
 
   @Column()
