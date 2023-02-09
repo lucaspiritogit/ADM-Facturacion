@@ -1,5 +1,7 @@
 let total = document.getElementById('total');
 let totalAsNumber = parseInt(total.value);
+let subTotal = document.getElementById('subTotal');
+let subTotalAsNumber = parseInt(subTotal.value);
 let calcularTotal = document.getElementById('calcularTotal');
 let submitViaje = document.getElementById('submitViaje');
 submitViaje.disabled = true;
@@ -7,9 +9,7 @@ submitViaje.disabled = true;
 let bulto = document.getElementById('conBulto');
 let demora = document.getElementById('conDemora');
 let lluvia = document.getElementById('conLluvia');
-
-let subTotal = document.getElementById('subTotal');
-let subTotalAsNumber = parseInt(subTotal);
+let regreso = document.getElementById('conRegreso');
 
 let localidad0 = document.getElementById('localidad0');
 let localidad1 = document.getElementById('localidad1');
@@ -22,11 +22,20 @@ let precioLocalidad1;
 let precioLocalidad2;
 let precioLocalidad3;
 let precioLocalidad4;
+precioLocalidad0 = parseInt(0);
+precioLocalidad1 = parseInt(0);
+precioLocalidad2 = parseInt(0);
+precioLocalidad3 = parseInt(0);
+precioLocalidad4 = parseInt(0);
 
+let subTotales = [];
+let regresoMasLocalidades;
+let sumaTotal;
+const VALOR_REGRESO_FIJO = 300;
 localidad0.addEventListener('change', () => {
   let localidadSelected = localidad0.options[localidad0.selectedIndex].value;
-  totalAsNumber = 0;
-  total.value = totalAsNumber;
+  subTotalAsNumber = 0;
+  subTotal.value = subTotalAsNumber;
 
   fetch('/localidad/')
     .then((response) => response.json())
@@ -36,20 +45,15 @@ localidad0.addEventListener('change', () => {
       );
       filteredLocalidad.forEach((localidadFiltrada) => {
         precioLocalidad0 = localidadFiltrada.precio;
-        console.log(
-          '🚀 ~ file: nuevoViajeParaEmpresa.js:39 ~ filteredLocalidad.forEach ~ precioLocalidad0',
-          precioLocalidad0,
-        );
-        totalAsNumber += localidadFiltrada.precio;
-        total.innerHTML = totalAsNumber;
+        subTotalAsNumber += localidadFiltrada.precio;
       });
     });
 });
 
 localidad1.addEventListener('change', () => {
   localidadSelected = localidad1.options[localidad1.selectedIndex].value;
-  totalAsNumber = 0;
-  total.value = totalAsNumber;
+  subTotalAsNumber = 0;
+  subTotal.value = subTotalAsNumber;
 
   fetch('/localidad/')
     .then((response) => response.json())
@@ -59,20 +63,15 @@ localidad1.addEventListener('change', () => {
       );
       filteredLocalidad.forEach((localidadFiltrada) => {
         precioLocalidad1 = localidadFiltrada.precio;
-        console.log(
-          '🚀 ~ file: nuevoViajeParaEmpresa.js:62 ~ filteredLocalidad.forEach ~ precioLocalidad1',
-          precioLocalidad1,
-        );
-        totalAsNumber += localidadFiltrada.precio;
-        total.innerHTML = totalAsNumber;
+        subTotalAsNumber += localidadFiltrada.precio;
       });
     });
 });
 
 localidad2.addEventListener('change', () => {
   localidadSelected = localidad2.options[localidad2.selectedIndex].value;
-  totalAsNumber = 0;
-  total.value = totalAsNumber;
+  subTotalAsNumber = 0;
+  subTotal.value = subTotalAsNumber;
 
   fetch('/localidad/')
     .then((response) => response.json())
@@ -82,20 +81,16 @@ localidad2.addEventListener('change', () => {
       );
       filteredLocalidad.forEach((localidadFiltrada) => {
         precioLocalidad2 = localidadFiltrada.precio;
-        console.log(
-          '🚀 ~ file: nuevoViajeParaEmpresa.js:85 ~ filteredLocalidad.forEach ~ precioLocalidad2',
-          precioLocalidad2,
-        );
-        totalAsNumber += localidadFiltrada.precio;
-        total.innerHTML = totalAsNumber;
+        subTotalAsNumber += localidadFiltrada.precio;
+        subTotal.innerHTML = subTotalAsNumber;
       });
     });
 });
 
 localidad3.addEventListener('change', () => {
   localidadSelected = localidad3.options[localidad3.selectedIndex].value;
-  totalAsNumber = 0;
-  total.value = totalAsNumber;
+  subTotalAsNumber = 0;
+  subTotal.value = subTotalAsNumber;
 
   fetch('/localidad/')
     .then((response) => response.json())
@@ -105,16 +100,16 @@ localidad3.addEventListener('change', () => {
       );
       filteredLocalidad.forEach((localidadFiltrada) => {
         precioLocalidad3 = localidadFiltrada.precio;
-        totalAsNumber += localidadFiltrada.precio;
-        total.innerHTML = totalAsNumber;
+        subTotalAsNumber += localidadFiltrada.precio;
+        subTotal.innerHTML = subTotalAsNumber;
       });
     });
 });
 
 localidad4.addEventListener('change', () => {
   localidadSelected = localidad4.options[localidad4.selectedIndex].value;
-  totalAsNumber = 0;
-  total.value = totalAsNumber;
+  subTotalAsNumber = 0;
+  subTotal.value = subTotalAsNumber;
 
   fetch('/localidad/')
     .then((response) => response.json())
@@ -125,64 +120,87 @@ localidad4.addEventListener('change', () => {
       filteredLocalidad.forEach((localidadFiltrada) => {
         precioLocalidad4 = localidadFiltrada.precio;
 
-        totalAsNumber += localidadFiltrada.precio;
-        total.innerHTML = totalAsNumber;
+        subTotalAsNumber += localidadFiltrada.precio;
+        subTotal.innerHTML = subTotalAsNumber;
       });
     });
 });
 
+regreso.addEventListener('change', () => {
+  if (regreso.checked) {
+    regresoMasLocalidades =
+      VALOR_REGRESO_FIJO +
+      precioLocalidad0 +
+      precioLocalidad1 +
+      precioLocalidad2 +
+      precioLocalidad3 +
+      precioLocalidad4;
+    subTotales.push(VALOR_REGRESO_FIJO);
+  } else {
+    regresoMasLocalidades =
+      VALOR_REGRESO_FIJO -
+      precioLocalidad0 +
+      precioLocalidad1 +
+      precioLocalidad2 +
+      precioLocalidad3 +
+      precioLocalidad4;
+  }
+});
+
 calcularTotal.addEventListener('click', (e) => {
   e.preventDefault();
-  if (precioLocalidad1 == undefined) {
-    precioLocalidad1 = 0;
-  }
-  totalAsNumber +=
-    precioLocalidad0 +
-    precioLocalidad1 +
-    precioLocalidad2 +
-    precioLocalidad3 +
-    precioLocalidad4;
-  console.log(
-    '🚀 ~ file: nuevoViajeParaEmpresa.js:127 ~ calcularTotal.addEventListener ~ totalAsNumber',
-    totalAsNumber,
-  );
-  total.value = totalAsNumber;
-  submitViaje.disabled = false;
-});
+  subTotales.push(precioLocalidad0);
+  subTotales.push(precioLocalidad1);
+  subTotales.push(precioLocalidad2);
+  subTotales.push(precioLocalidad3);
+  subTotales.push(precioLocalidad4);
+  subTotales = subTotales.filter(function (value) {
+    return value !== 0;
+  });
 
-bulto.addEventListener('change', () => {
-  // bulto es el 25% sumado al total
+  sumaTotal = subTotales.reduce((a, b) => a + b, 0);
+  let valorConRegreso;
+  let valorSinRegreso;
+  if (regreso.checked) {
+    valorConRegreso = sumaTotal;
+  } else {
+    valorSinRegreso = sumaTotal;
+  }
+
   if (bulto.checked) {
-    let divided = (totalAsNumber /= 4);
-    totalAsNumber += divided;
-    total.value = totalAsNumber;
-  } else {
-    total.value = totalAsNumber;
+    if (regreso.checked) {
+      let bultoAplicado = valorConRegreso / 4;
+      sumaTotal += bultoAplicado;
+
+      subTotales.push(bultoAplicado);
+    } else {
+      let bultoAplicado = valorSinRegreso / 4;
+      sumaTotal += bultoAplicado;
+
+      subTotales.push(bultoAplicado);
+    }
   }
-});
 
-demora.addEventListener('change', () => {
-  // valores fijos cada 15 minutos 200 pesos
-
-  if (demora.checked) {
-    totalAsNumber /= 4;
-    total.value = totalAsNumber;
-  } else {
-    totalAsNumber *= 4;
-    total.value = totalAsNumber;
-  }
-});
-
-lluvia.addEventListener('change', () => {
-  // lluvia es total divido 2 y eso se lo suma al total
   if (lluvia.checked) {
-    // divide it by 2 and then add it to the total
-    let divided = (totalAsNumber /= 2);
-    totalAsNumber += divided;
-    total.value = totalAsNumber + divided;
-  } else {
-    total.value = totalAsNumber;
+    if (regreso.checked) {
+      let lluviaAplicado = valorConRegreso / 2;
+
+      sumaTotal += lluviaAplicado;
+
+      subTotales.push(lluviaAplicado);
+    } else {
+      let lluviaAplicado = valorSinRegreso / 2;
+      sumaTotal += lluviaAplicado;
+
+      subTotales.push(lluviaAplicado);
+    }
   }
+
+  subTotal.value = subTotales.join(' + ');
+  console.log(subTotales);
+
+  total.value = sumaTotal;
+  subTotales = [];
 });
 
 // empresa

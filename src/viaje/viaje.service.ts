@@ -85,7 +85,7 @@ export class ViajeService {
     viaje.conRegreso = createViajeDto.conRegreso;
     viaje.saleDelDomicilio = createViajeDto.saleDelDomicilio;
     viaje.total = parseInt(createViajeDto.total);
-    viaje.subTotal = parseInt(createViajeDto.subTotal);
+    viaje.subTotal = createViajeDto.subTotal;
     viaje.fecha = createViajeDto.fecha;
     viaje.fecha_string = createViajeDto.fecha.toLocaleString('es-AR');
     console.log(

@@ -55,7 +55,7 @@ export class Viaje {
   total: number;
 
   @Column()
-  subTotal: number;
+  subTotal: string;
 
   @Column()
   conLluvia: string;

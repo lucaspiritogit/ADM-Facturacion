@@ -15,13 +15,20 @@
     <div class="nuevoViajeForm" style="display: flex; width: 100%;">
         <div style="display: flex; flex-direction: column; width: 50%;">
             <form action=" /viaje" method="POST" id="nuevoViaje">
-                <label>Localidades:</label>
-                <select name="localidad0" id="localidad0">
-                    <option value="0">Seleccionar</option>
-                    {{#each localidades}}
-                    <option value="{{this.id}}">{{this.nombre}} | ${{this.precio}}</option>
-                    {{/each}}
-                </select>
+                <div>
+                    <label>Localidades:</label>
+                    <select name="localidad0" id="localidad0">
+                        <option value="0">Seleccionar</option>
+                        {{#each localidades}}
+                        <option value="{{this.id}}">{{this.nombre}} | ${{this.precio}}</option>
+                        {{/each}}
+                    </select>
+                    <label>Demora:</label>
+                    <select name="demora0" id="demora0">
+                        <option value="0">Seleccionar demora</option>
+                        <option value="0">test</option>
+                    </select>
+                </div>
                 <select name="localidad1" id="localidad1">
                     <option value="0">Seleccionar</option>
                     {{#each localidades}}
@@ -46,7 +53,7 @@
                     <option value="{{this.id}}">{{this.nombre}} | ${{this.precio}}</option>
                     {{/each}}
                 </select>
-                <button id="calcularTotal">Calcular precio</button>
+                <button id="calcularTotal">Calcular Total</button>
                 <label for="destinos">Destinos:</label>
                 <input type="text" id="destino0" name="destino0">
                 <input type="text" id="destino1" name="destino1">
@@ -62,6 +69,8 @@
                     <option value="{{this.id}}">{{this.nombre}}</option>
                     {{/each}}
                 </select>
+                <label for="conRegreso">¿Con regreso? </label>
+                <input type="checkbox" name="conRegreso" id="conRegreso" value="si">
         </div>
         <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 50%;">
             <label for="nombreDelSolicitante">Nombre del solicitante</label>
@@ -72,8 +81,6 @@
             <input type="checkbox" name="conBulto" id="conBulto" value="si">
             <label for="conDemora">¿Con demora?</label>
             <input type="checkbox" name="conDemora" id="conDemora" value="si">
-            <label for="conRegreso">¿Con regreso? </label>
-            <input type="checkbox" name="conRegreso" id="conRegreso" value="si">
             <label for="cadeteList">Cadete/s</label>
             <input type="text" name="cadetes" id="cadetes">
             <label for="peaje1">Peaje 1</label>
@@ -84,9 +91,10 @@
             <input type="number" name="peaje3" id="peaje3" value="0">
             <br>
             <label for="subTotal">Subtotal:</label>
-            <input type="number" name="subTotal" id="subTotal" value="0" readonly>
+            <textarea name="subTotal" id="subTotal" cols="40" rows="10"></textarea>
+            {{!-- <input type="text" name="subTotal" id="subTotal" value="" readonly> --}}
             <label for="total">Total:</label>
-            <input type="text" name="total" id="total" value="0" readonly>
+            <input type="number" name="total" id="total" value="0" readonly>
             <button id="submitViaje" class="m-2 btn btn-primary" type="submit">Registrar viaje</button>
         </div>
         </form>
