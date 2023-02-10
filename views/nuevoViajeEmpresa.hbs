@@ -3,13 +3,11 @@
 
 <head>
     <style>
-        body {
-            background-color: rgb(0, 0, 0) !important;
-            color: rgb(179, 178, 178) !important;
-        }
+
     </style>
     <meta charset="utf-8" />
     <title>ADM | Nuevo viaje</title>
+    <link rel="stylesheet" href="/css/nuevoViajeEmpresa.css">
 </head>
 
 <header>
@@ -22,14 +20,14 @@
         <div style="display: flex; flex-direction: column; width: 50%;">
             <form action=" /viaje" method="POST" id="nuevoViaje">
                 <div style="display:flex;">
-                    <label>Localidades:</label>
+                    <label style="margin: 10px;">Localidades:</label>
                     <select class="form-control" name="localidad0" id="localidad0">
                         <option value="0">Seleccionar</option>
                         {{#each localidades}}
                         <option value="{{this.id}}">{{this.nombre}} | ${{this.precio}}</option>
                         {{/each}}
                     </select>
-                    <label>Demora:</label>
+                    <label class="demoraLabel">Demora:</label>
                     <select class="form-control" name="demora0" id="demora0">
                         <option value="0">Seleccionar demora</option>
                         {{#each demoras}}
@@ -38,14 +36,14 @@
                     </select>
                 </div>
                 <div style="display:flex;">
-                    <label>Localidades:</label>
+                    <label style="margin: 10px;">Localidades:</label>
                     <select class="form-control" name="localidad1" id="localidad1">
                         <option value="0">Seleccionar</option>
                         {{#each localidades}}
                         <option value="{{this.id}}">{{this.nombre}} | ${{this.precio}}</option>
                         {{/each}}
                     </select>
-                    <label>Demora:</label>
+                    <label class="demoraLabel">Demora:</label>
                     <select class="form-control" name="demora1" id="demora1">
                         <option value="0">Seleccionar demora</option>
                         {{#each demoras}}
@@ -54,14 +52,14 @@
                     </select>
                 </div>
                 <div style="display:flex;">
-                    <label>Localidades:</label>
+                    <label style="margin: 10px;">Localidades:</label>
                     <select class="form-control" name="localidad2" id="localidad2">
                         <option value="0">Seleccionar</option>
                         {{#each localidades}}
                         <option value="{{this.id}}">{{this.nombre}} | ${{this.precio}}</option>
                         {{/each}}
                     </select>
-                    <label>Demora:</label>
+                    <label class="demoraLabel">Demora:</label>
                     <select class="form-control" name="demora2" id="demora2">
                         <option value="0">Seleccionar demora</option>
                         {{#each demoras}}
@@ -70,14 +68,14 @@
                     </select>
                 </div>
                 <div style="display:flex;">
-                    <label>Localidades:</label>
+                    <label style="margin: 10px;">Localidades:</label>
                     <select class="form-control" name="localidad3" id="localidad3">
                         <option value="0">Seleccionar</option>
                         {{#each localidades}}
                         <option value="{{this.id}}">{{this.nombre}} | ${{this.precio}}</option>
                         {{/each}}
                     </select>
-                    <label>Demora:</label>
+                    <label class="demoraLabel">Demora:</label>
                     <select class="form-control" name="demora3" id="demora3">
                         <option value="0">Seleccionar demora</option>
                         {{#each demoras}}
@@ -86,14 +84,14 @@
                     </select>
                 </div>
                 <div style="display:flex;">
-                    <label>Localidades:</label>
+                    <label style="margin: 10px;">Localidades:</label>
                     <select class="form-control" name="localidad4" id="localidad4">
                         <option value="0">Seleccionar</option>
                         {{#each localidades}}
                         <option value="{{this.id}}">{{this.nombre}} | ${{this.precio}}</option>
                         {{/each}}
                     </select>
-                    <label>Demora:</label>
+                    <label class="demoraLabel">Demora:</label>
                     <select class="form-control" name="demora4" id="demora4">
                         <option value="0">Seleccionar demora</option>
                         {{#each demoras}}
@@ -103,11 +101,11 @@
                 </div>
 
                 <label for="destinos">Destinos:</label>
-                <input type="text" id="destino0" name="destino0">
-                <input type="text" id="destino1" name="destino1">
-                <input type="text" id="destino2" name="destino2">
-                <input type="text" id="destino3" name="destino3">
-                <input type="text" id="destino4" name="destino4">
+                <input style="margin: 10px;" type="text" id="destino0" name="destino0">
+                <input style="margin: 10px;" type="text" id="destino1" name="destino1">
+                <input style="margin: 10px;" type="text" id="destino2" name="destino2">
+                <input style="margin: 10px;" type="text" id="destino3" name="destino3">
+                <input style="margin: 10px;" type="text" id="destino4" name="destino4">
                 <label for="fecha">Fecha:</label>
                 <input type="date" name="fecha" id="fecha" required>
                 <label for="empresa">Empresa</label>
@@ -136,7 +134,7 @@
             <input type="number" name="demora" id="demora" readonly>
             <br>
             <label for="subTotal">Subtotal:</label>
-            <textarea style="width: 800px;" name="subTotal" id="subTotal" cols="10" rows="1"></textarea>
+            <textarea name="subTotal" id="subTotal" cols="5" rows="1" readonly></textarea>
             <label for="total">Total:</label>
             <br>
             <input type="number" name="total" id="total" value="0" readonly>

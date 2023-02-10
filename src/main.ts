@@ -13,5 +13,6 @@ async function bootstrap() {
   app.setViewEngine('hbs');
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);
+  console.log(`Listening on port 3000: http://localhost:3000/`);
 }
 bootstrap();

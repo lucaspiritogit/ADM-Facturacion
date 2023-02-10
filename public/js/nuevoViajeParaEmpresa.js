@@ -6,7 +6,7 @@ let calcularTotal = document.getElementById('calcularTotal');
 let submitViaje = document.getElementById('submitViaje');
 let demora = document.getElementById('demora');
 let demoraAsNumber = parseInt(demora.value);
-
+submitViaje.disabled = true;
 let bulto = document.getElementById('conBulto');
 let lluvia = document.getElementById('conLluvia');
 let regreso = document.getElementById('conRegreso');
@@ -52,179 +52,167 @@ let valorTotalDemora = 0;
 const VALOR_REGRESO_FIJO = 300;
 let valorConRegreso = 0;
 let valorSinRegreso = 0;
+let fetchDemora = fetch('/demora/').then((response) => response.json());
 
 demora0.addEventListener('change', () => {
   let demoraSelected = demora0.options[demora0.selectedIndex].value;
   subTotalAsNumber = 0;
   subTotal.value = subTotalAsNumber;
-
-  fetch('/demora/')
-    .then((response) => response.json())
-    .then((data) => {
-      let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
-      filteredDemora.forEach((demoraFiltrada) => {
-        precioDemora0 = demoraFiltrada.precio;
-        valorTotalDemora += precioDemora0;
-      });
+  fetchDemora.then((data) => {
+    let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
+    filteredDemora.forEach((demoraFiltrada) => {
+      precioDemora0 = demoraFiltrada.precio;
+      valorTotalDemora += precioDemora0;
     });
+  });
 });
 
 demora1.addEventListener('change', () => {
   let demoraSelected = demora1.options[demora1.selectedIndex].value;
   subTotalAsNumber = 0;
   subTotal.value = subTotalAsNumber;
-
-  fetch('/demora/')
-    .then((response) => response.json())
-    .then((data) => {
-      let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
-      filteredDemora.forEach((demoraFiltrada) => {
-        precioDemora1 = demoraFiltrada.precio;
-        valorTotalDemora += precioDemora1;
-      });
+  fetchDemora.then((data) => {
+    let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
+    filteredDemora.forEach((demoraFiltrada) => {
+      precioDemora1 = demoraFiltrada.precio;
+      valorTotalDemora += precioDemora1;
     });
+  });
 });
 
 demora2.addEventListener('change', () => {
   let demoraSelected = demora2.options[demora2.selectedIndex].value;
   subTotalAsNumber = 0;
   subTotal.value = subTotalAsNumber;
-
-  fetch('/demora/')
-    .then((response) => response.json())
-    .then((data) => {
-      let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
-      filteredDemora.forEach((demoraFiltrada) => {
-        precioDemora2 = demoraFiltrada.precio;
-        valorTotalDemora += precioDemora2;
-      });
+  fetchDemora.then((data) => {
+    let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
+    filteredDemora.forEach((demoraFiltrada) => {
+      precioDemora2 = demoraFiltrada.precio;
+      valorTotalDemora += precioDemora2;
     });
+  });
 });
 
 demora3.addEventListener('change', () => {
   let demoraSelected = demora3.options[demora3.selectedIndex].value;
   subTotalAsNumber = 0;
   subTotal.value = subTotalAsNumber;
-
-  fetch('/demora/')
-    .then((response) => response.json())
-    .then((data) => {
-      let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
-      filteredDemora.forEach((demoraFiltrada) => {
-        precioDemora3 = demoraFiltrada.precio;
-        valorTotalDemora += precioDemora3;
-      });
+  fetchDemora.then((data) => {
+    let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
+    filteredDemora.forEach((demoraFiltrada) => {
+      precioDemora3 = demoraFiltrada.precio;
+      valorTotalDemora += precioDemora3;
     });
+  });
 });
 
 demora4.addEventListener('change', () => {
   let demoraSelected = demora4.options[demora4.selectedIndex].value;
   subTotalAsNumber = 0;
   subTotal.value = subTotalAsNumber;
-
-  fetch('/demora/')
-    .then((response) => response.json())
-    .then((data) => {
-      let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
-      filteredDemora.forEach((demoraFiltrada) => {
-        precioDemora4 = demoraFiltrada.precio;
-        valorTotalDemora += precioDemora4;
-      });
+  fetchDemora.then((data) => {
+    let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
+    filteredDemora.forEach((demoraFiltrada) => {
+      precioDemora4 = demoraFiltrada.precio;
+      valorTotalDemora += precioDemora4;
     });
+  });
 });
+
+let fetchLocalidad = fetch('/localidad/').then((response) => response.json());
 
 localidad0.addEventListener('change', () => {
   let localidadSelected = localidad0.options[localidad0.selectedIndex].value;
   subTotalAsNumber = 0;
   subTotal.value = subTotalAsNumber;
-
-  fetch('/localidad/')
-    .then((response) => response.json())
-    .then((data) => {
-      let filteredLocalidad = data.filter(
-        (localidad) => localidad.id == localidadSelected,
-      );
-      filteredLocalidad.forEach((localidadFiltrada) => {
-        precioLocalidad0 = localidadFiltrada.precio;
-        subTotalAsNumber += localidadFiltrada.precio;
-      });
+  if (localidadSelected == '0') {
+    precioLocalidad0 = 0;
+  }
+  fetchLocalidad.then((data) => {
+    let filteredLocalidad = data.filter(
+      (localidad) => localidad.id == localidadSelected,
+    );
+    filteredLocalidad.forEach((localidadFiltrada) => {
+      precioLocalidad0 = localidadFiltrada.precio;
+      subTotalAsNumber += localidadFiltrada.precio;
     });
+  });
 });
 
 localidad1.addEventListener('change', () => {
   localidadSelected = localidad1.options[localidad1.selectedIndex].value;
   subTotalAsNumber = 0;
   subTotal.value = subTotalAsNumber;
-
-  fetch('/localidad/')
-    .then((response) => response.json())
-    .then((data) => {
-      let filteredLocalidad = data.filter(
-        (localidad) => localidad.id == localidadSelected,
-      );
-      filteredLocalidad.forEach((localidadFiltrada) => {
-        precioLocalidad1 = localidadFiltrada.precio;
-        subTotalAsNumber += localidadFiltrada.precio;
-      });
+  if (localidadSelected == '0') {
+    precioLocalidad1 = 0;
+  }
+  fetchLocalidad.then((data) => {
+    let filteredLocalidad = data.filter(
+      (localidad) => localidad.id == localidadSelected,
+    );
+    filteredLocalidad.forEach((localidadFiltrada) => {
+      precioLocalidad1 = localidadFiltrada.precio;
+      subTotalAsNumber += localidadFiltrada.precio;
     });
+  });
 });
 
 localidad2.addEventListener('change', () => {
   localidadSelected = localidad2.options[localidad2.selectedIndex].value;
   subTotalAsNumber = 0;
   subTotal.value = subTotalAsNumber;
-
-  fetch('/localidad/')
-    .then((response) => response.json())
-    .then((data) => {
-      let filteredLocalidad = data.filter(
-        (localidad) => localidad.id == localidadSelected,
-      );
-      filteredLocalidad.forEach((localidadFiltrada) => {
-        precioLocalidad2 = localidadFiltrada.precio;
-        subTotalAsNumber += localidadFiltrada.precio;
-        subTotal.innerHTML = subTotalAsNumber;
-      });
+  if (localidadSelected == '0') {
+    precioLocalidad2 = 0;
+  }
+  fetchLocalidad.then((data) => {
+    let filteredLocalidad = data.filter(
+      (localidad) => localidad.id == localidadSelected,
+    );
+    filteredLocalidad.forEach((localidadFiltrada) => {
+      precioLocalidad2 = localidadFiltrada.precio;
+      subTotalAsNumber += localidadFiltrada.precio;
+      subTotal.innerHTML = subTotalAsNumber;
     });
+  });
 });
 
 localidad3.addEventListener('change', () => {
   localidadSelected = localidad3.options[localidad3.selectedIndex].value;
   subTotalAsNumber = 0;
   subTotal.value = subTotalAsNumber;
-
-  fetch('/localidad/')
-    .then((response) => response.json())
-    .then((data) => {
-      let filteredLocalidad = data.filter(
-        (localidad) => localidad.id == localidadSelected,
-      );
-      filteredLocalidad.forEach((localidadFiltrada) => {
-        precioLocalidad3 = localidadFiltrada.precio;
-        subTotalAsNumber += localidadFiltrada.precio;
-        subTotal.innerHTML = subTotalAsNumber;
-      });
+  if (localidadSelected == '0') {
+    precioLocalidad3 = 0;
+  }
+  fetchLocalidad.then((data) => {
+    let filteredLocalidad = data.filter(
+      (localidad) => localidad.id == localidadSelected,
+    );
+    filteredLocalidad.forEach((localidadFiltrada) => {
+      precioLocalidad3 = localidadFiltrada.precio;
+      subTotalAsNumber += localidadFiltrada.precio;
+      subTotal.innerHTML = subTotalAsNumber;
     });
+  });
 });
 
 localidad4.addEventListener('change', () => {
   localidadSelected = localidad4.options[localidad4.selectedIndex].value;
   subTotalAsNumber = 0;
   subTotal.value = subTotalAsNumber;
+  if (localidadSelected == '0') {
+    precioLocalidad4 = 0;
+  }
+  fetchLocalidad.then((data) => {
+    let filteredLocalidad = data.filter(
+      (localidad) => localidad.id == localidadSelected,
+    );
+    filteredLocalidad.forEach((localidadFiltrada) => {
+      precioLocalidad4 = localidadFiltrada.precio;
 
-  fetch('/localidad/')
-    .then((response) => response.json())
-    .then((data) => {
-      let filteredLocalidad = data.filter(
-        (localidad) => localidad.id == localidadSelected,
-      );
-      filteredLocalidad.forEach((localidadFiltrada) => {
-        precioLocalidad4 = localidadFiltrada.precio;
-
-        subTotalAsNumber += localidadFiltrada.precio;
-        subTotal.innerHTML = subTotalAsNumber;
-      });
+      subTotalAsNumber += localidadFiltrada.precio;
+      subTotal.innerHTML = subTotalAsNumber;
     });
+  });
 });
 
 calcularTotal.addEventListener('click', (e) => {
@@ -270,6 +258,9 @@ calcularTotal.addEventListener('click', (e) => {
   sumaTotal += valorTotalDemora;
   total.value = sumaTotal;
   subTotales = [];
+  if (total.value != 0) {
+    submitViaje.disabled = false;
+  }
 });
 
 function calcularDemora() {
