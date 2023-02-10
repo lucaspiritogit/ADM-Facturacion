@@ -84,6 +84,7 @@ export class ViajeService {
     viaje.conRegreso = createViajeDto.conRegreso;
     viaje.cadetes = createViajeDto.cadetes;
     viaje.saleDelDomicilio = createViajeDto.saleDelDomicilio;
+    viaje.demora = createViajeDto.demora;
     viaje.peajes = parseInt(createViajeDto.peajes);
     viaje.total = parseInt(createViajeDto.total);
     viaje.subTotal = createViajeDto.subTotal;

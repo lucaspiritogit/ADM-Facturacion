@@ -4,6 +4,8 @@ let subTotal = document.getElementById('subTotal');
 let subTotalAsNumber = parseInt(subTotal.value);
 let calcularTotal = document.getElementById('calcularTotal');
 let submitViaje = document.getElementById('submitViaje');
+let demora = document.getElementById('demora');
+let demoraAsNumber = parseInt(demora.value);
 
 let bulto = document.getElementById('conBulto');
 let lluvia = document.getElementById('conLluvia');
@@ -263,13 +265,17 @@ calcularTotal.addEventListener('click', (e) => {
   }
   subTotal.value = subTotales.join(' + ');
 
-  // peajes
   sumarPeajes();
-
+  calcularDemora();
   sumaTotal += valorTotalDemora;
   total.value = sumaTotal;
   subTotales = [];
 });
+
+function calcularDemora() {
+  demora.value = valorTotalDemora;
+  demoraAsNumber = valorTotalDemora;
+}
 
 function sumarPeajes() {
   if (peajes.value == '' || peajes.value == NaN) {
@@ -282,7 +288,6 @@ function sumarPeajes() {
   peajes.value = peajesArrSum;
   totalAsNumber += peajesArrSum;
   total.value = totalAsNumber;
-
   sumaTotal += peajesArrSum;
 }
 

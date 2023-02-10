@@ -38,8 +38,8 @@ export class CreateViajeDto {
 
   conBulto: string;
 
-  conDemora: string;
-
+  demora: number;
+  
   conRegreso: string;
 
   peajes: string;

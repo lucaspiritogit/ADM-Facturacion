@@ -66,6 +66,9 @@ export class Viaje {
   conRegreso: string;
 
   @Column()
+  demora: number;
+
+  @Column()
   cadetes: string;
 
   @Column()
