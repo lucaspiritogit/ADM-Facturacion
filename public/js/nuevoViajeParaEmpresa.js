@@ -4,7 +4,6 @@ let subTotal = document.getElementById('subTotal');
 let subTotalAsNumber = parseInt(subTotal.value);
 let calcularTotal = document.getElementById('calcularTotal');
 let submitViaje = document.getElementById('submitViaje');
-submitViaje.disabled = true;
 
 let bulto = document.getElementById('conBulto');
 let demora = document.getElementById('conDemora');
@@ -29,9 +28,9 @@ precioLocalidad3 = parseInt(0);
 precioLocalidad4 = parseInt(0);
 
 let subTotales = [];
-let regresoMasLocalidades;
 let sumaTotal;
 const VALOR_REGRESO_FIJO = 300;
+
 localidad0.addEventListener('change', () => {
   let localidadSelected = localidad0.options[localidad0.selectedIndex].value;
   subTotalAsNumber = 0;
@@ -126,27 +125,6 @@ localidad4.addEventListener('change', () => {
     });
 });
 
-regreso.addEventListener('change', () => {
-  if (regreso.checked) {
-    regresoMasLocalidades =
-      VALOR_REGRESO_FIJO +
-      precioLocalidad0 +
-      precioLocalidad1 +
-      precioLocalidad2 +
-      precioLocalidad3 +
-      precioLocalidad4;
-    subTotales.push(VALOR_REGRESO_FIJO);
-  } else {
-    regresoMasLocalidades =
-      VALOR_REGRESO_FIJO -
-      precioLocalidad0 +
-      precioLocalidad1 +
-      precioLocalidad2 +
-      precioLocalidad3 +
-      precioLocalidad4;
-  }
-});
-
 calcularTotal.addEventListener('click', (e) => {
   e.preventDefault();
   subTotales.push(precioLocalidad0);
@@ -158,48 +136,32 @@ calcularTotal.addEventListener('click', (e) => {
     return value !== 0;
   });
 
-  sumaTotal = subTotales.reduce((a, b) => a + b, 0);
-  let valorConRegreso;
-  let valorSinRegreso;
   if (regreso.checked) {
-    valorConRegreso = sumaTotal;
-  } else {
-    valorSinRegreso = sumaTotal;
+    subTotales.push(VALOR_REGRESO_FIJO);
   }
 
-  if (bulto.checked) {
-    if (regreso.checked) {
-      let bultoAplicado = valorConRegreso / 4;
-      sumaTotal += bultoAplicado;
+  sumaTotal = subTotales.reduce((a, b) => a + b, 0);
 
-      subTotales.push(bultoAplicado);
-    } else {
-      let bultoAplicado = valorSinRegreso / 4;
-      sumaTotal += bultoAplicado;
+  if (lluvia.checked && bulto.checked) {
+    let lluviaAplicado = sumaTotal / 2;
+    let bultoAplicado = sumaTotal / 4;
+    sumaTotal += lluviaAplicado + bultoAplicado;
+    subTotales.push(lluviaAplicado);
+    subTotales.push(bultoAplicado);
+  } else if (lluvia.checked) {
+    let lluviaAplicado = sumaTotal / 2;
+    sumaTotal += lluviaAplicado;
+    subTotales.push(lluviaAplicado);
+  } else if (bulto.checked) {
+    let bultoAplicado = sumaTotal / 4;
+    sumaTotal += bultoAplicado;
 
-      subTotales.push(bultoAplicado);
-    }
+    subTotales.push(bultoAplicado);
   }
-
-  if (lluvia.checked) {
-    if (regreso.checked) {
-      let lluviaAplicado = valorConRegreso / 2;
-
-      sumaTotal += lluviaAplicado;
-
-      subTotales.push(lluviaAplicado);
-    } else {
-      let lluviaAplicado = valorSinRegreso / 2;
-      sumaTotal += lluviaAplicado;
-
-      subTotales.push(lluviaAplicado);
-    }
-  }
-
   subTotal.value = subTotales.join(' + ');
-  console.log(subTotales);
 
   total.value = sumaTotal;
+
   subTotales = [];
 });
 
