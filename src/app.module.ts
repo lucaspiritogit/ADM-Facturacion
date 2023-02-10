@@ -9,6 +9,7 @@ import { EmpresaModule } from './empresa/empresa.module';
 import { CadeteModule } from './cadete/cadete.module';
 import { LocalidadModule } from './localidad/localidad.module';
 import { UsersModule } from './users/users.module';
+import { DemoraModule } from './demora/demora.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { UsersModule } from './users/users.module';
     CadeteModule,
     LocalidadModule,
     UsersModule,
+    DemoraModule,
   ],
   controllers: [AppController],
   providers: [AppService],

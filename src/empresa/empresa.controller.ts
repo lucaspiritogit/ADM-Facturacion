@@ -13,12 +13,14 @@ import { CadeteService } from 'src/cadete/cadete.service';
 import { CreateEmpresaDto } from './dto/create-empresa.dto';
 import { UpdateEmpresaDto } from './dto/update-empresa.dto';
 import { LocalidadService } from 'src/localidad/localidad.service';
+import { DemoraService } from 'src/demora/demora.service';
 @Controller('empresa')
 export class EmpresaController {
   constructor(
     private readonly empresaService: EmpresaService,
     private readonly cadeteService: CadeteService,
     private readonly localidadService: LocalidadService,
+    private readonly demoraService: DemoraService,
   ) {}
 
   @Post()
@@ -37,8 +39,9 @@ export class EmpresaController {
     const empresas = await this.empresaService.findAll();
     const cadetes = await this.cadeteService.findAll();
     const localidades = await this.localidadService.findAll();
+    const demoras = await this.demoraService.findAll();
 
-    return { empresas, cadetes, localidades };
+    return { empresas, cadetes, localidades, demoras };
   }
 
   @Get(':id')

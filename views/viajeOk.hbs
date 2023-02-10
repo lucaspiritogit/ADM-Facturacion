@@ -10,13 +10,15 @@
 {{>navbar}}
 
 <body>
-    <h1 style="color: rgb(19, 190, 19)">Viaje creado ok</h1>
-    <div id="json">
-        {{viajeJson}}
+    <div style="display: flex; align-items:center; flex-direction:column; justify-content:center; text-align:center;">
+        <a href="/empresa/nuevoViajeEmpresa" style="font-size: 40px">> Dar de alta nuevo viaje</a>
+        <h1 style="color: rgb(19, 190, 19)">Viaje creado ok 👍</h1>
+        <div id="json">
+            {{viajeJson}}
+        </div>
+        <pre id="json-data" style="white-space: pre-wrap; font-size: 20px"></pre>
+        <hr>
     </div>
-    <pre id="json-data" style="white-space: pre-wrap; font-size: 20px"></pre>
-    <hr>
-    <a href="/empresa/nuevoViajeEmpresa" style="font-size: 40px">> Dar de alta nuevo viaje</a>
 </body>
 <script>
     let parsedJson = JSON.parse(document.getElementById('json').innerHTML);

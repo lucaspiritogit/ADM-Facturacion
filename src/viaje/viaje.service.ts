@@ -82,15 +82,13 @@ export class ViajeService {
     viaje.conLluvia = createViajeDto.conLluvia;
     viaje.conBulto = createViajeDto.conBulto;
     viaje.conRegreso = createViajeDto.conRegreso;
+    viaje.cadetes = createViajeDto.cadetes;
     viaje.saleDelDomicilio = createViajeDto.saleDelDomicilio;
+    viaje.peajes = parseInt(createViajeDto.peajes);
     viaje.total = parseInt(createViajeDto.total);
     viaje.subTotal = createViajeDto.subTotal;
     viaje.fecha = createViajeDto.fecha;
     viaje.fecha_string = createViajeDto.fecha.toLocaleString('es-AR');
-    console.log(
-      '🚀 ~ file: viaje.service.ts:21 ~ ViajeService ~ create ~ createViajeDto',
-      viaje,
-    );
 
     return await this.viajeRepository.save(viaje);
   }

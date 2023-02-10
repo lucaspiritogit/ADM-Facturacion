@@ -32,6 +32,8 @@ export class CreateViajeDto {
 
   destino4: string;
 
+  cadetes: string;
+
   conLluvia: string;
 
   conBulto: string;
@@ -39,6 +41,8 @@ export class CreateViajeDto {
   conDemora: string;
 
   conRegreso: string;
+
+  peajes: string;
 
   saleDelDomicilio: string;
 

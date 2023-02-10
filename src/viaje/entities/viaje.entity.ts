@@ -6,7 +6,6 @@ import {
   JoinColumn,
   ManyToOne,
 } from 'typeorm';
-import { Localidad } from 'src/localidad/entities/localidad.entity';
 import { Empresa } from 'src/empresa/entities/empresa.entity';
 
 @Entity()
@@ -67,7 +66,13 @@ export class Viaje {
   conRegreso: string;
 
   @Column()
+  cadetes: string;
+
+  @Column()
   saleDelDomicilio: string;
+
+  @Column()
+  peajes: number;
 
   @Column()
   fecha: Date;
