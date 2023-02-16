@@ -1,3 +1,5 @@
+const VALOR_REGRESO_FIJO = 300;
+
 let total = document.getElementById('total');
 let totalAsNumber = parseInt(total.value);
 let subTotal = document.getElementById('subTotal');
@@ -29,6 +31,7 @@ precioDemora2 = parseInt(0);
 precioDemora3 = parseInt(0);
 precioDemora4 = parseInt(0);
 
+let fetchLocalidad = fetch('/localidad/').then((response) => response.json());
 let localidad0 = document.getElementById('localidad0');
 let localidad1 = document.getElementById('localidad1');
 let localidad2 = document.getElementById('localidad2');
@@ -49,7 +52,6 @@ precioLocalidad4 = parseInt(0);
 let subTotales = [];
 let sumaTotal;
 let valorTotalDemora = 0;
-const VALOR_REGRESO_FIJO = 300;
 let valorConRegreso = 0;
 let valorSinRegreso = 0;
 let fetchDemora = fetch('/demora/').then((response) => response.json());
@@ -62,7 +64,6 @@ demora0.addEventListener('change', () => {
     let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
     filteredDemora.forEach((demoraFiltrada) => {
       precioDemora0 = demoraFiltrada.precio;
-      valorTotalDemora += precioDemora0;
     });
   });
 });
@@ -75,7 +76,7 @@ demora1.addEventListener('change', () => {
     let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
     filteredDemora.forEach((demoraFiltrada) => {
       precioDemora1 = demoraFiltrada.precio;
-      valorTotalDemora += precioDemora1;
+      // valorTotalDemora += precioDemora1;
     });
   });
 });
@@ -88,7 +89,6 @@ demora2.addEventListener('change', () => {
     let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
     filteredDemora.forEach((demoraFiltrada) => {
       precioDemora2 = demoraFiltrada.precio;
-      valorTotalDemora += precioDemora2;
     });
   });
 });
@@ -101,7 +101,6 @@ demora3.addEventListener('change', () => {
     let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
     filteredDemora.forEach((demoraFiltrada) => {
       precioDemora3 = demoraFiltrada.precio;
-      valorTotalDemora += precioDemora3;
     });
   });
 });
@@ -114,12 +113,9 @@ demora4.addEventListener('change', () => {
     let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
     filteredDemora.forEach((demoraFiltrada) => {
       precioDemora4 = demoraFiltrada.precio;
-      valorTotalDemora += precioDemora4;
     });
   });
 });
-
-let fetchLocalidad = fetch('/localidad/').then((response) => response.json());
 
 localidad0.addEventListener('change', () => {
   let localidadSelected = localidad0.options[localidad0.selectedIndex].value;
@@ -222,6 +218,8 @@ calcularTotal.addEventListener('click', (e) => {
   subTotales.push(precioLocalidad2);
   subTotales.push(precioLocalidad3);
   subTotales.push(precioLocalidad4);
+  calcularDemora();
+
   subTotales.push(valorTotalDemora);
   subTotales = subTotales.filter(function (value) {
     return value !== 0;
@@ -254,7 +252,6 @@ calcularTotal.addEventListener('click', (e) => {
   subTotal.value = subTotales.join(' + ');
 
   sumarPeajes();
-  calcularDemora();
   sumaTotal += valorTotalDemora;
   total.value = sumaTotal;
   subTotales = [];
@@ -264,6 +261,12 @@ calcularTotal.addEventListener('click', (e) => {
 });
 
 function calcularDemora() {
+  valorTotalDemora =
+    precioDemora0 +
+    precioDemora1 +
+    precioDemora2 +
+    precioDemora3 +
+    precioDemora4;
   demora.value = valorTotalDemora;
   demoraAsNumber = valorTotalDemora;
 }
