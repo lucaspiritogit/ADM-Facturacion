@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsPositive, IsOptional } from 'class-validator';
 export class CreateViajeDto {
   total: string;
 
@@ -12,8 +12,10 @@ export class CreateViajeDto {
 
   localidad0: number;
 
+  @IsOptional()
   localidad1: number;
 
+  @IsOptional()
   localidad2: number;
 
   localidad3: number;
@@ -39,7 +41,7 @@ export class CreateViajeDto {
   conBulto: string;
 
   demora: number;
-  
+
   conRegreso: string;
 
   peajes: string;

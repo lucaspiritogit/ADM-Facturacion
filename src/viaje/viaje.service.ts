@@ -88,7 +88,6 @@ export class ViajeService {
     viaje.peajes = parseInt(createViajeDto.peajes);
     viaje.total = parseInt(createViajeDto.total);
     viaje.subTotal = createViajeDto.subTotal;
-    viaje.fecha = createViajeDto.fecha;
     viaje.fecha_string = createViajeDto.fecha.toLocaleString('es-AR');
 
     return await this.viajeRepository.save(viaje);

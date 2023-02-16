@@ -19,6 +19,10 @@
     <div class="nuevoViajeForm" style="display: flex; width: 100%;">
         <div style="display: flex; flex-direction: column; width: 50%;">
             <form action=" /viaje" method="POST" id="nuevoViaje">
+                <div>
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" name="fecha" id="fecha" required>
+                </div>
                 <div style="display:flex;">
                     <label style="margin: 10px;">Localidades:</label>
                     <select class="form-control" name="localidad0" id="localidad0">
@@ -106,15 +110,14 @@
                 <input style="margin: 10px;" type="text" id="destino2" name="destino2">
                 <input style="margin: 10px;" type="text" id="destino3" name="destino3">
                 <input style="margin: 10px;" type="text" id="destino4" name="destino4">
-                <label for="fecha">Fecha:</label>
-                <input type="date" name="fecha" id="fecha" required>
                 <label for="empresa">Empresa</label>
-                <select name="empresa" id="empresa">
+                <select required name="empresa" id="empresa">
                     <option value="0">Seleccionar</option>
                     {{#each empresas}}
                     <option value="{{this.id}}">{{this.nombre}}</option>
                     {{/each}}
                 </select>
+                <div id="empresaNoSeleccionada"></div>
                 <label for="conRegreso">¿Con regreso? </label>
                 <input type="checkbox" name="conRegreso" id="conRegreso" value="si">
         </div>

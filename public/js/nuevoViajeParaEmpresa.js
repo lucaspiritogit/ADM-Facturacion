@@ -40,7 +40,7 @@ let precioLocalidad4 = 0;
 let fetchLocalidad = fetch('/localidad/').then((response) => response.json());
 
 let subTotales = [];
-let sumaTotal;
+let sumaTotal = 0;
 let sumaDeTodaslasDemoras = 0;
 let valorConRegreso = 0;
 let valorSinRegreso = 0;
@@ -217,80 +217,6 @@ localidad4.addEventListener('change', () => {
   });
 });
 
-calcularTotal.addEventListener('click', (e) => {
-  e.preventDefault();
-  subTotales.push(precioLocalidad0);
-  subTotales.push(precioLocalidad1);
-  subTotales.push(precioLocalidad2);
-  subTotales.push(precioLocalidad3);
-  subTotales.push(precioLocalidad4);
-  calcularDemora();
-
-  subTotales.push(sumaDeTodaslasDemoras);
-  subTotales = subTotales.filter(function (value) {
-    return value !== 0;
-  });
-
-  if (regreso.checked) {
-    subTotales.push(VALOR_REGRESO_FIJO);
-  }
-  sumaTotal = subTotales.reduce(
-    (a, b) => (b === sumaDeTodaslasDemoras ? a : a + b),
-    0,
-  );
-
-  if (lluvia.checked && bulto.checked) {
-    let lluviaAplicado = sumaTotal / 2;
-    let bultoAplicado = sumaTotal / 4;
-    sumaTotal += lluviaAplicado + bultoAplicado;
-    subTotales.push(lluviaAplicado);
-    subTotales.push(bultoAplicado);
-  } else if (lluvia.checked) {
-    let lluviaAplicado = sumaTotal / 2;
-    sumaTotal += lluviaAplicado;
-    subTotales.push(lluviaAplicado);
-  } else if (bulto.checked) {
-    let bultoAplicado = sumaTotal / 4;
-    sumaTotal += bultoAplicado;
-
-    subTotales.push(bultoAplicado);
-  }
-  subTotal.value = subTotales.join(' + ');
-
-  sumarPeajes();
-  sumaTotal += sumaDeTodaslasDemoras;
-  total.value = sumaTotal;
-  subTotales = [];
-  if (total.value != 0) {
-    submitViaje.disabled = false;
-  }
-});
-
-function calcularDemora() {
-  sumaDeTodaslasDemoras =
-    precioDemora0 +
-    precioDemora1 +
-    precioDemora2 +
-    precioDemora3 +
-    precioDemora4;
-  demora.value = sumaDeTodaslasDemoras;
-  demoraAsNumber = sumaDeTodaslasDemoras;
-}
-
-function sumarPeajes() {
-  if (peajes.value == '' || peajes.value == NaN) {
-    peajes.value = '0';
-  }
-  let peajesInputValue = peajes.value;
-  let peajesArr = peajesInputValue.split(',');
-  let peajesArrAsNumber = peajesArr.map((peaje) => parseInt(peaje));
-  let peajesArrSum = peajesArrAsNumber.reduce((a, b) => a + b, 0);
-  peajes.value = peajesArrSum;
-  totalAsNumber += peajesArrSum;
-  total.value = totalAsNumber;
-  sumaTotal += peajesArrSum;
-}
-
 // empresa
 let empresa = document.getElementById('empresa');
 let empresaSelected = empresa.options[empresa.selectedIndex].value;
@@ -310,3 +236,91 @@ empresa.addEventListener('change', () => {
       });
     });
 });
+
+function corroborarLluviaYBulto() {
+  if (lluvia.checked && bulto.checked) {
+    let lluviaAplicado = sumaTotal / 2;
+    let bultoAplicado = sumaTotal / 4;
+    sumaTotal += lluviaAplicado + bultoAplicado;
+    subTotales.push(lluviaAplicado);
+    subTotales.push(bultoAplicado);
+  } else if (lluvia.checked) {
+    let lluviaAplicado = sumaTotal / 2;
+    sumaTotal += lluviaAplicado;
+    subTotales.push(lluviaAplicado);
+  } else if (bulto.checked) {
+    let bultoAplicado = sumaTotal / 4;
+    sumaTotal += bultoAplicado;
+
+    subTotales.push(bultoAplicado);
+  }
+}
+
+calcularTotal.addEventListener('click', (e) => {
+  e.preventDefault();
+  subTotales.push(precioLocalidad0);
+  subTotales.push(precioLocalidad1);
+  subTotales.push(precioLocalidad2);
+  subTotales.push(precioLocalidad3);
+  subTotales.push(precioLocalidad4);
+  calcularDemora();
+
+  subTotales = subTotales.filter(function (value) {
+    return value !== 0;
+  });
+
+  if (regreso.checked) {
+    subTotales.push(VALOR_REGRESO_FIJO);
+  }
+
+  sumaTotal = subTotales.reduce(
+    (a, b) => (b === sumaDeTodaslasDemoras ? a : a + b),
+    0,
+  );
+
+  corroborarLluviaYBulto();
+
+  subTotal.value = subTotales.join(' + ');
+
+  sumarPeajes();
+  sumaTotal += sumaDeTodaslasDemoras;
+  total.value = sumaTotal;
+  subTotales = [];
+  if (empresaSelected == '0') {
+    submitViaje.disabled = true;
+    let empresaNoSeleccionada = document.getElementById(
+      'empresaNoSeleccionada',
+    );
+    empresaNoSeleccionada.innerHTML = 'Debe seleccionar una empresa';
+    empresaNoSeleccionada.style.color = 'red';
+  }
+  if (total.value != 0) {
+    submitViaje.disabled = false;
+  }
+});
+
+function calcularDemora() {
+  sumaDeTodaslasDemoras =
+    precioDemora0 +
+    precioDemora1 +
+    precioDemora2 +
+    precioDemora3 +
+    precioDemora4;
+  demora.value = sumaDeTodaslasDemoras;
+  demoraAsNumber = sumaDeTodaslasDemoras;
+  subTotales.push(sumaDeTodaslasDemoras);
+}
+
+function sumarPeajes() {
+  if (peajes.value == '' || peajes.value == NaN) {
+    peajes.value = '0';
+  }
+  let peajesInputValue = peajes.value;
+  let peajesArr = peajesInputValue.split(',');
+  let peajesArrAsNumber = peajesArr.map((peaje) => parseInt(peaje));
+  let peajesArrSum = peajesArrAsNumber.reduce((a, b) => a + b, 0);
+  peajes.value = peajesArrSum;
+  totalAsNumber += peajesArrSum;
+  total.value = totalAsNumber;
+  sumaTotal += peajesArrSum;
+}

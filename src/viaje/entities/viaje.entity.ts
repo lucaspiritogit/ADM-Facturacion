@@ -78,9 +78,6 @@ export class Viaje {
   peajes: number;
 
   @Column()
-  fecha: Date;
-
-  @Column()
   fecha_string: string;
 
   @Column()

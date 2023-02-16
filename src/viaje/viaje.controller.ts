@@ -57,12 +57,12 @@ export class ViajeController {
   async findAll() {
     const viajes = await this.viajeService.findAll();
     viajes.map((viaje) => {
-      viaje.fecha_string = viaje.fecha.toLocaleDateString('es-AR');
       const localidades = Object.keys(viaje).filter((key) =>
         key.startsWith('localidad'),
       );
       let localidadesJoined = (viaje.localidad0 = localidades
         .map((localidad) => viaje[localidad])
+        .filter(Boolean)
         .join(','));
 
       const destinos = Object.keys(viaje).filter((key) =>
@@ -70,6 +70,7 @@ export class ViajeController {
       );
       let destinosJoined = (viaje.destino0 = destinos
         .map((destino) => viaje[destino])
+        .filter(Boolean)
         .join(','));
     });
     return { viajes };
