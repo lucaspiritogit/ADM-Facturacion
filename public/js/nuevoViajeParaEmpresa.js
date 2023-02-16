@@ -8,7 +8,6 @@ let calcularTotal = document.getElementById('calcularTotal');
 let submitViaje = document.getElementById('submitViaje');
 let demora = document.getElementById('demora');
 let demoraAsNumber = parseInt(demora.value);
-submitViaje.disabled = true;
 let bulto = document.getElementById('conBulto');
 let lluvia = document.getElementById('conLluvia');
 let regreso = document.getElementById('conRegreso');
@@ -20,41 +19,33 @@ let demora2 = document.getElementById('demora2');
 let demora3 = document.getElementById('demora3');
 let demora4 = document.getElementById('demora4');
 
-let precioDemora0;
-let precioDemora1;
-let precioDemora2;
-let precioDemora3;
-let precioDemora4;
-precioDemora0 = parseInt(0);
-precioDemora1 = parseInt(0);
-precioDemora2 = parseInt(0);
-precioDemora3 = parseInt(0);
-precioDemora4 = parseInt(0);
+let precioDemora0 = 0;
+let precioDemora1 = 0;
+let precioDemora2 = 0;
+let precioDemora3 = 0;
+let precioDemora4 = 0;
+let fetchDemora = fetch('/demora/').then((response) => response.json());
 
-let fetchLocalidad = fetch('/localidad/').then((response) => response.json());
 let localidad0 = document.getElementById('localidad0');
 let localidad1 = document.getElementById('localidad1');
 let localidad2 = document.getElementById('localidad2');
 let localidad3 = document.getElementById('localidad3');
 let localidad4 = document.getElementById('localidad4');
 
-let precioLocalidad0;
-let precioLocalidad1;
-let precioLocalidad2;
-let precioLocalidad3;
-let precioLocalidad4;
-precioLocalidad0 = parseInt(0);
-precioLocalidad1 = parseInt(0);
-precioLocalidad2 = parseInt(0);
-precioLocalidad3 = parseInt(0);
-precioLocalidad4 = parseInt(0);
+let precioLocalidad0 = 0;
+let precioLocalidad1 = 0;
+let precioLocalidad2 = 0;
+let precioLocalidad3 = 0;
+let precioLocalidad4 = 0;
+let fetchLocalidad = fetch('/localidad/').then((response) => response.json());
 
 let subTotales = [];
 let sumaTotal;
-let valorTotalDemora = 0;
+let sumaDeTodaslasDemoras = 0;
 let valorConRegreso = 0;
 let valorSinRegreso = 0;
-let fetchDemora = fetch('/demora/').then((response) => response.json());
+
+submitViaje.disabled = true;
 
 demora0.addEventListener('change', () => {
   let demoraSelected = demora0.options[demora0.selectedIndex].value;
@@ -62,6 +53,9 @@ demora0.addEventListener('change', () => {
   subTotal.value = subTotalAsNumber;
   fetchDemora.then((data) => {
     let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
+    if (demoraSelected == '0') {
+      precioDemora0 = 0;
+    }
     filteredDemora.forEach((demoraFiltrada) => {
       precioDemora0 = demoraFiltrada.precio;
     });
@@ -74,6 +68,9 @@ demora1.addEventListener('change', () => {
   subTotal.value = subTotalAsNumber;
   fetchDemora.then((data) => {
     let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
+    if (demoraSelected == '0') {
+      precioDemora1 = 0;
+    }
     filteredDemora.forEach((demoraFiltrada) => {
       precioDemora1 = demoraFiltrada.precio;
       // valorTotalDemora += precioDemora1;
@@ -87,6 +84,9 @@ demora2.addEventListener('change', () => {
   subTotal.value = subTotalAsNumber;
   fetchDemora.then((data) => {
     let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
+    if (demoraSelected == '0') {
+      precioDemora2 = 0;
+    }
     filteredDemora.forEach((demoraFiltrada) => {
       precioDemora2 = demoraFiltrada.precio;
     });
@@ -99,6 +99,9 @@ demora3.addEventListener('change', () => {
   subTotal.value = subTotalAsNumber;
   fetchDemora.then((data) => {
     let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
+    if (demoraSelected == '0') {
+      precioDemora3 = 0;
+    }
     filteredDemora.forEach((demoraFiltrada) => {
       precioDemora3 = demoraFiltrada.precio;
     });
@@ -111,6 +114,9 @@ demora4.addEventListener('change', () => {
   subTotal.value = subTotalAsNumber;
   fetchDemora.then((data) => {
     let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
+    if (demoraSelected == '0') {
+      precioDemora4 = 0;
+    }
     filteredDemora.forEach((demoraFiltrada) => {
       precioDemora4 = demoraFiltrada.precio;
     });
@@ -220,7 +226,7 @@ calcularTotal.addEventListener('click', (e) => {
   subTotales.push(precioLocalidad4);
   calcularDemora();
 
-  subTotales.push(valorTotalDemora);
+  subTotales.push(sumaDeTodaslasDemoras);
   subTotales = subTotales.filter(function (value) {
     return value !== 0;
   });
@@ -229,7 +235,7 @@ calcularTotal.addEventListener('click', (e) => {
     subTotales.push(VALOR_REGRESO_FIJO);
   }
   sumaTotal = subTotales.reduce(
-    (a, b) => (b === valorTotalDemora ? a : a + b),
+    (a, b) => (b === sumaDeTodaslasDemoras ? a : a + b),
     0,
   );
 
@@ -252,7 +258,7 @@ calcularTotal.addEventListener('click', (e) => {
   subTotal.value = subTotales.join(' + ');
 
   sumarPeajes();
-  sumaTotal += valorTotalDemora;
+  sumaTotal += sumaDeTodaslasDemoras;
   total.value = sumaTotal;
   subTotales = [];
   if (total.value != 0) {
@@ -261,14 +267,14 @@ calcularTotal.addEventListener('click', (e) => {
 });
 
 function calcularDemora() {
-  valorTotalDemora =
+  sumaDeTodaslasDemoras =
     precioDemora0 +
     precioDemora1 +
     precioDemora2 +
     precioDemora3 +
     precioDemora4;
-  demora.value = valorTotalDemora;
-  demoraAsNumber = valorTotalDemora;
+  demora.value = sumaDeTodaslasDemoras;
+  demoraAsNumber = sumaDeTodaslasDemoras;
 }
 
 function sumarPeajes() {
