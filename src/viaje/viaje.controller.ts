@@ -56,6 +56,7 @@ export class ViajeController {
   @Render('listadoDeViajes')
   async findAll() {
     const viajes = await this.viajeService.findAll();
+
     viajes.map((viaje) => {
       const localidades = Object.keys(viaje).filter((key) =>
         key.startsWith('localidad'),
