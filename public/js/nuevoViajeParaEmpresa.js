@@ -1,4 +1,4 @@
-const VALOR_REGRESO_FIJO = 300;
+const VALOR_REGRESO = 300;
 
 let total = document.getElementById('total');
 let totalAsNumber = parseInt(total.value);
@@ -73,7 +73,6 @@ demora1.addEventListener('change', () => {
     }
     filteredDemora.forEach((demoraFiltrada) => {
       precioDemora1 = demoraFiltrada.precio;
-      // valorTotalDemora += precioDemora1;
     });
   });
 });
@@ -265,12 +264,13 @@ calcularTotal.addEventListener('click', (e) => {
   subTotales.push(precioLocalidad4);
   calcularDemora();
 
+  // Saco todos los valores que sean 0.
   subTotales = subTotales.filter(function (value) {
     return value !== 0;
   });
 
   if (regreso.checked) {
-    subTotales.push(VALOR_REGRESO_FIJO);
+    subTotales.push(VALOR_REGRESO);
   }
 
   sumaTotal = subTotales.reduce(
@@ -286,6 +286,13 @@ calcularTotal.addEventListener('click', (e) => {
   sumaTotal += sumaDeTodaslasDemoras;
   total.value = sumaTotal;
   subTotales = [];
+  checkIfEmpresaIsSelected();
+  if (total.value != 0) {
+    submitViaje.disabled = false;
+  }
+});
+
+function checkIfEmpresaIsSelected() {
   if (empresaSelected == '0') {
     submitViaje.disabled = true;
     let empresaNoSeleccionada = document.getElementById(
@@ -293,11 +300,10 @@ calcularTotal.addEventListener('click', (e) => {
     );
     empresaNoSeleccionada.innerHTML = 'Debe seleccionar una empresa';
     empresaNoSeleccionada.style.color = 'red';
+  } else {
+    empresaNoSeleccionada.innerHTML = '';
   }
-  if (total.value != 0) {
-    submitViaje.disabled = false;
-  }
-});
+}
 
 function calcularDemora() {
   sumaDeTodaslasDemoras =

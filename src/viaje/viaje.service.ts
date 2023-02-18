@@ -33,6 +33,7 @@ export class ViajeService {
         throw new Error(error);
       }
     }
+
     let location0Found = await this.localidadRepository.findOne({
       where: { id: createViajeDto.localidad0 },
     });
