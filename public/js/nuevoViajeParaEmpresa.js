@@ -237,7 +237,6 @@ empresa.addEventListener('change', () => {
           submitViaje.disabled = false;
 
           empresaSelected = 0;
-          console.log('test');
         }
         empresaSelected = empresaFiltrada.id;
         return;
@@ -295,7 +294,6 @@ calcularTotal.addEventListener('click', (e) => {
   sumaTotal += sumaDeTodaslasDemoras;
   total.value = sumaTotal;
   subTotales = [];
-  calcularComision();
   checkIfEmpresaIsSelected();
   if (total.value != 0) {
     submitViaje.disabled = false;
