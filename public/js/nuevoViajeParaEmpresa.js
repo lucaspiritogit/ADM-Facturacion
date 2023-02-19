@@ -39,6 +39,9 @@ let precioLocalidad3 = 0;
 let precioLocalidad4 = 0;
 let fetchLocalidad = fetch('/localidad/').then((response) => response.json());
 
+let nombreDelSolicitante = document.getElementById('nombreDelSolicitante');
+let nombreDelSolicitanteValue = nombreDelSolicitante.value;
+
 let subTotales = [];
 let sumaTotal = 0;
 let sumaDeTodaslasDemoras = 0;
@@ -230,6 +233,12 @@ empresa.addEventListener('change', () => {
         (empresa) => empresa.id == empresaSelected,
       );
       filteredEmpresa.forEach((empresaFiltrada) => {
+        if (empresaSelected == '0' && nombreDelSolicitanteValue != '') {
+          submitViaje.disabled = false;
+
+          empresaSelected = 0;
+          console.log('test');
+        }
         empresaSelected = empresaFiltrada.id;
         return;
       });
@@ -286,6 +295,7 @@ calcularTotal.addEventListener('click', (e) => {
   sumaTotal += sumaDeTodaslasDemoras;
   total.value = sumaTotal;
   subTotales = [];
+  calcularComision();
   checkIfEmpresaIsSelected();
   if (total.value != 0) {
     submitViaje.disabled = false;
@@ -293,7 +303,7 @@ calcularTotal.addEventListener('click', (e) => {
 });
 
 function checkIfEmpresaIsSelected() {
-  if (empresaSelected == '0') {
+  if (empresaSelected == '0' && nombreDelSolicitanteValue == '') {
     submitViaje.disabled = true;
     let empresaNoSeleccionada = document.getElementById(
       'empresaNoSeleccionada',
@@ -316,7 +326,7 @@ function calcularDemora() {
   demoraAsNumber = sumaDeTodaslasDemoras;
   subTotales.push(sumaDeTodaslasDemoras);
 }
-
+let peajesTotal;
 function sumarPeajes() {
   if (peajes.value == '' || peajes.value == NaN) {
     peajes.value = '0';
@@ -325,8 +335,13 @@ function sumarPeajes() {
   let peajesArr = peajesInputValue.split(',');
   let peajesArrAsNumber = peajesArr.map((peaje) => parseInt(peaje));
   let peajesArrSum = peajesArrAsNumber.reduce((a, b) => a + b, 0);
+  peajesTotal = peajesArrSum;
   peajes.value = peajesArrSum;
   totalAsNumber += peajesArrSum;
   total.value = totalAsNumber;
   sumaTotal += peajesArrSum;
+  let comision = sumaTotal - peajesTotal;
+  comisionInput.value = comision;
 }
+
+function calcularComision() {}
