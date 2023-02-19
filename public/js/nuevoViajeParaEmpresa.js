@@ -340,8 +340,4 @@ function sumarPeajes() {
   totalAsNumber += peajesArrSum;
   total.value = totalAsNumber;
   sumaTotal += peajesArrSum;
-  let comision = sumaTotal - peajesTotal;
-  comisionInput.value = comision;
 }
-
-function calcularComision() {}

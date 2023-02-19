@@ -17,69 +17,69 @@ export class Viaje {
   @ManyToOne(() => Empresa, (empresa) => empresa.id)
   empresa: number;
 
-  @Column()
+  @Column({ nullable: true })
   empresaNombre: string;
 
-  @Column()
+  @Column({ nullable: true })
   localidad0: string;
 
-  @Column()
+  @Column({ nullable: true })
   localidad1: string;
 
-  @Column()
+  @Column({ nullable: true })
   localidad2: string;
 
-  @Column()
+  @Column({ nullable: true })
   localidad3: string;
 
-  @Column()
+  @Column({ nullable: true })
   localidad4: string;
 
-  @Column()
+  @Column({ nullable: true })
   destino0: string;
 
-  @Column()
+  @Column({ nullable: true })
   destino1: string;
 
-  @Column()
+  @Column({ nullable: true })
   destino2: string;
 
-  @Column()
+  @Column({ nullable: true })
   destino3: string;
 
-  @Column()
+  @Column({ nullable: true })
   destino4: string;
 
-  @Column()
+  @Column({ nullable: true })
   total: number;
 
-  @Column()
+  @Column({ nullable: true })
   subTotal: string;
 
-  @Column()
+  @Column({ nullable: true })
   conLluvia: string;
 
-  @Column()
+  @Column({ nullable: true })
   conBulto: string;
 
-  @Column()
+  @Column({ nullable: true })
   conRegreso: string;
 
-  @Column()
+  @Column({ nullable: true })
   demora: number;
 
-  @Column()
+  @Column({ nullable: true })
   cadetes: string;
 
-  @Column()
+  @Column({ nullable: true })
   saleDelDomicilio: string;
 
-  @Column()
+  @Column({ nullable: true })
   peajes: number;
 
-  @Column()
+  @Column({ nullable: true })
   fecha_string: string;
 
-  @Column()
+  @Column({ nullable: true })
   nombreDelSolicitante: string;
 }
