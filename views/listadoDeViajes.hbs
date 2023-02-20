@@ -22,37 +22,37 @@
         <table id="myTable" class="display">
             <thead>
                 <tr>
+                    <th>Fecha</th>
                     <th>Empresa</th>
                     <th>Solicitante</th>
-                    <th>Fecha</th>
                     <th>Destino/s</th>
                     <th>Localidad/es</th>
                     <th>Lluvia</th>
                     <th>Bulto</th>
                     <th>Demora</th>
                     <th>Regreso</th>
-                    <th>Cadete/s</th>
                     <th>Peajes</th>
                     <th>Detalle en $</th>
                     <th>Total</th>
+                    <th>Cadete/s</th>
                 </tr>
             </thead>
             <tbody>
                 {{#each viajes}}
                 <tr>
+                    <td>{{this.fecha_string}}</td>
                     <td>{{this.empresaNombre}}</td>
                     <td>{{this.nombreDelSolicitante}}</td>
-                    <td>{{this.fecha_string}}</td>
                     <td>{{this.destino0}}</td>
                     <td>{{this.localidad0}}</td>
                     <td>{{this.conLluvia}}</td>
                     <td>{{this.conBulto}}</td>
                     <td>{{this.demora}}</td>
                     <td>{{this.conRegreso}}</td>
-                    <td>{{this.cadetes}}</td>
                     <td>{{this.peajes}}</td>
                     <td>{{this.subTotal}}</td>
                     <td>${{this.total}}</td>
+                    <td>{{this.cadetes}}</td>
                 </tr>
                 {{/each}}
             </tbody>
