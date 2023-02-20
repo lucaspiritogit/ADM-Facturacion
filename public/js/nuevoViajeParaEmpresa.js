@@ -40,7 +40,6 @@ let precioLocalidad4 = 0;
 let fetchLocalidad = fetch('/localidad/').then((response) => response.json());
 
 let nombreDelSolicitante = document.getElementById('nombreDelSolicitante');
-let nombreDelSolicitanteValue = nombreDelSolicitante.value;
 
 let subTotales = [];
 let sumaTotal = 0;
@@ -233,11 +232,6 @@ empresa.addEventListener('change', () => {
         (empresa) => empresa.id == empresaSelected,
       );
       filteredEmpresa.forEach((empresaFiltrada) => {
-        if (empresaSelected == '0' && nombreDelSolicitanteValue != '') {
-          submitViaje.disabled = false;
-
-          empresaSelected = 0;
-        }
         empresaSelected = empresaFiltrada.id;
         return;
       });
@@ -301,15 +295,26 @@ calcularTotal.addEventListener('click', (e) => {
 });
 
 function checkIfEmpresaIsSelected() {
-  if (empresaSelected == '0' && nombreDelSolicitanteValue == '') {
+  let empresaNoSeleccionada = document.getElementById('empresaNoSeleccionada');
+
+  if (empresaSelected == '0') {
     submitViaje.disabled = true;
-    let empresaNoSeleccionada = document.getElementById(
-      'empresaNoSeleccionada',
-    );
     empresaNoSeleccionada.innerHTML = 'Debe seleccionar una empresa';
     empresaNoSeleccionada.style.color = 'red';
   } else {
+    submitViaje.disabled = false;
     empresaNoSeleccionada.innerHTML = '';
+  }
+
+  if (empresaSelected == '0' && nombreDelSolicitante.value != '') {
+    submitViaje.disabled = false;
+    empresaSelected = 0;
+    empresaNoSeleccionada.innerHTML = '';
+  }
+  if (empresaSelected == '0' && nombreDelSolicitante.value == '') {
+    submitViaje.disabled = true;
+    empresaNoSeleccionada.innerHTML = 'Debe seleccionar una empresa';
+    empresaNoSeleccionada.style.color = 'red';
   }
 }
 
