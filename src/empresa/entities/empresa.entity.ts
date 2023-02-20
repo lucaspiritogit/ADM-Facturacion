@@ -6,6 +6,6 @@ export class Empresa extends Cliente {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   CUIT: string;
 }

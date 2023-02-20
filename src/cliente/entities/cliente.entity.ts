@@ -8,6 +8,6 @@ export class Cliente {
   @Column()
   nombre: string;
 
-  @Column()
+  @Column({ nullable: true })
   ubicacion: string;
 }
