@@ -69,26 +69,19 @@
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
 <script>
     $(document).ready(function () {
+        var customTitle = 'Reporte de cuentas';
+
         var table = $('#myTable').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 {
                     extend: 'excelHtml5',
-                    title: `Viajes ${new Date().toLocaleDateString('es-AR')}`,
-                    exportOptions: {
-                        modifier: {
-                            page: 'current'
-                        }
-                    }
-                },
-                {
-                    extend: 'excelHtml5',
-                    title: `Viajes Completo ${new Date().toLocaleDateString('es-AR')}`,
-                    text: 'Excel completo'
+                    title: `Resumen de cuenta`,
+                    text: 'Excel completo',
                 },
                 {
                     extend: 'print',
-                    title: `Viajes ${new Date().toLocaleDateString('es-AR')}`,
+                    title: `Resumen de cuenta`,
                     text: 'Imprimir',
                     exportOptions: {
                         columns: ':visible'
@@ -97,8 +90,8 @@
             ],
         });
 
-    });
 
+    });
 
 </script>
 
