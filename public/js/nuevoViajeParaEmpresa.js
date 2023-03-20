@@ -275,17 +275,14 @@ calcularTotal.addEventListener('click', (e) => {
     subTotales.push(VALOR_REGRESO);
   }
 
-  sumaTotal = subTotales.reduce(
-    (a, b) => (b === sumaDeTodaslasDemoras ? a : a + b),
-    0,
-  );
+  sumaTotal = subTotales.reduce((a, b) => a + b, 0);
 
   corroborarLluviaYBulto();
 
   subTotal.value = subTotales.join(' + ');
 
   sumarPeajes();
-  sumaTotal += sumaDeTodaslasDemoras;
+  // sumaTotal += sumaDeTodaslasDemoras;
   total.value = sumaTotal;
   subTotales = [];
   checkIfEmpresaIsSelected();
