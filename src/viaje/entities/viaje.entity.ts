@@ -50,7 +50,7 @@ export class Viaje {
   @Column({ nullable: true })
   destino4: string;
 
-  @Column({ nullable: true })
+  @Column('decimal', { nullable: false, precision: 10, scale: 2 })
   total: number;
 
   @Column({ nullable: true })

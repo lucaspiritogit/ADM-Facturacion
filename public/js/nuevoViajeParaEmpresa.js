@@ -1,9 +1,7 @@
 const VALOR_REGRESO = 300;
 
 let total = document.getElementById('total');
-let totalAsNumber = parseInt(total.value);
 let subTotal = document.getElementById('subTotal');
-let subTotalAsNumber = parseInt(subTotal.value);
 let calcularTotal = document.getElementById('calcularTotal');
 let submitViaje = document.getElementById('submitViaje');
 let demora = document.getElementById('demora');
@@ -51,8 +49,7 @@ submitViaje.disabled = true;
 
 demora0.addEventListener('change', () => {
   let demoraSelected = demora0.options[demora0.selectedIndex].value;
-  subTotalAsNumber = 0;
-  subTotal.value = subTotalAsNumber;
+  subTotal.value = 0;
   fetchDemora.then((data) => {
     let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
     if (demoraSelected == '0') {
@@ -66,8 +63,7 @@ demora0.addEventListener('change', () => {
 
 demora1.addEventListener('change', () => {
   let demoraSelected = demora1.options[demora1.selectedIndex].value;
-  subTotalAsNumber = 0;
-  subTotal.value = subTotalAsNumber;
+  subTotal.value = 0;
   fetchDemora.then((data) => {
     let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
     if (demoraSelected == '0') {
@@ -81,8 +77,7 @@ demora1.addEventListener('change', () => {
 
 demora2.addEventListener('change', () => {
   let demoraSelected = demora2.options[demora2.selectedIndex].value;
-  subTotalAsNumber = 0;
-  subTotal.value = subTotalAsNumber;
+  subTotal.value = 0;
   fetchDemora.then((data) => {
     let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
     if (demoraSelected == '0') {
@@ -96,8 +91,7 @@ demora2.addEventListener('change', () => {
 
 demora3.addEventListener('change', () => {
   let demoraSelected = demora3.options[demora3.selectedIndex].value;
-  subTotalAsNumber = 0;
-  subTotal.value = subTotalAsNumber;
+  subTotal.value = 0;
   fetchDemora.then((data) => {
     let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
     if (demoraSelected == '0') {
@@ -111,8 +105,7 @@ demora3.addEventListener('change', () => {
 
 demora4.addEventListener('change', () => {
   let demoraSelected = demora4.options[demora4.selectedIndex].value;
-  subTotalAsNumber = 0;
-  subTotal.value = subTotalAsNumber;
+  subTotal.value = 0;
   fetchDemora.then((data) => {
     let filteredDemora = data.filter((demora) => demora.id == demoraSelected);
     if (demoraSelected == '0') {
@@ -126,8 +119,7 @@ demora4.addEventListener('change', () => {
 
 localidad0.addEventListener('change', () => {
   let localidadSelected = localidad0.options[localidad0.selectedIndex].value;
-  subTotalAsNumber = 0;
-  subTotal.value = subTotalAsNumber;
+  subTotal.value = 0;
   if (localidadSelected == '0') {
     precioLocalidad0 = 0;
   }
@@ -137,15 +129,13 @@ localidad0.addEventListener('change', () => {
     );
     filteredLocalidad.forEach((localidadFiltrada) => {
       precioLocalidad0 = localidadFiltrada.precio;
-      subTotalAsNumber += localidadFiltrada.precio;
     });
   });
 });
 
 localidad1.addEventListener('change', () => {
   localidadSelected = localidad1.options[localidad1.selectedIndex].value;
-  subTotalAsNumber = 0;
-  subTotal.value = subTotalAsNumber;
+  subTotal.value = 0;
   if (localidadSelected == '0') {
     precioLocalidad1 = 0;
   }
@@ -155,15 +145,13 @@ localidad1.addEventListener('change', () => {
     );
     filteredLocalidad.forEach((localidadFiltrada) => {
       precioLocalidad1 = localidadFiltrada.precio;
-      subTotalAsNumber += localidadFiltrada.precio;
     });
   });
 });
 
 localidad2.addEventListener('change', () => {
   localidadSelected = localidad2.options[localidad2.selectedIndex].value;
-  subTotalAsNumber = 0;
-  subTotal.value = subTotalAsNumber;
+  subTotal.value = 0;
   if (localidadSelected == '0') {
     precioLocalidad2 = 0;
   }
@@ -173,16 +161,13 @@ localidad2.addEventListener('change', () => {
     );
     filteredLocalidad.forEach((localidadFiltrada) => {
       precioLocalidad2 = localidadFiltrada.precio;
-      subTotalAsNumber += localidadFiltrada.precio;
-      subTotal.innerHTML = subTotalAsNumber;
     });
   });
 });
 
 localidad3.addEventListener('change', () => {
   localidadSelected = localidad3.options[localidad3.selectedIndex].value;
-  subTotalAsNumber = 0;
-  subTotal.value = subTotalAsNumber;
+  subTotal.value = 0;
   if (localidadSelected == '0') {
     precioLocalidad3 = 0;
   }
@@ -192,16 +177,13 @@ localidad3.addEventListener('change', () => {
     );
     filteredLocalidad.forEach((localidadFiltrada) => {
       precioLocalidad3 = localidadFiltrada.precio;
-      subTotalAsNumber += localidadFiltrada.precio;
-      subTotal.innerHTML = subTotalAsNumber;
     });
   });
 });
 
 localidad4.addEventListener('change', () => {
   localidadSelected = localidad4.options[localidad4.selectedIndex].value;
-  subTotalAsNumber = 0;
-  subTotal.value = subTotalAsNumber;
+  subTotal.value = 0;
   if (localidadSelected == '0') {
     precioLocalidad4 = 0;
   }
@@ -211,9 +193,6 @@ localidad4.addEventListener('change', () => {
     );
     filteredLocalidad.forEach((localidadFiltrada) => {
       precioLocalidad4 = localidadFiltrada.precio;
-
-      subTotalAsNumber += localidadFiltrada.precio;
-      subTotal.innerHTML = subTotalAsNumber;
     });
   });
 });
@@ -266,14 +245,14 @@ calcularTotal.addEventListener('click', (e) => {
   subTotales.push(precioLocalidad4);
   calcularDemora();
 
+  if (regreso.checked) {
+    subTotales.push(VALOR_REGRESO);
+  }
+
   // Saco todos los valores que sean 0.
   subTotales = subTotales.filter(function (value) {
     return value !== 0;
   });
-
-  if (regreso.checked) {
-    subTotales.push(VALOR_REGRESO);
-  }
 
   sumaTotal = subTotales.reduce((a, b) => a + b, 0);
 
@@ -282,8 +261,7 @@ calcularTotal.addEventListener('click', (e) => {
   subTotal.value = subTotales.join(' + ');
 
   sumarPeajes();
-  // sumaTotal += sumaDeTodaslasDemoras;
-  total.value = sumaTotal;
+  total.value = sumaTotal.toFixed(2);
   subTotales = [];
   checkIfEmpresaIsSelected();
   if (total.value != 0) {
@@ -337,7 +315,6 @@ function sumarPeajes() {
   let peajesArrSum = peajesArrAsNumber.reduce((a, b) => a + b, 0);
   peajesTotal = peajesArrSum;
   peajes.value = peajesArrSum;
-  totalAsNumber += peajesArrSum;
-  total.value = totalAsNumber;
+  total.value = peajesArrSum;
   sumaTotal += peajesArrSum;
 }

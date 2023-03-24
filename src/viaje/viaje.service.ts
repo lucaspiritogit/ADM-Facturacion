@@ -87,7 +87,7 @@ export class ViajeService {
     viaje.saleDelDomicilio = createViajeDto.saleDelDomicilio;
     viaje.demora = createViajeDto.demora;
     viaje.peajes = parseInt(createViajeDto.peajes);
-    viaje.total = parseInt(createViajeDto.total);
+    viaje.total = parseFloat(createViajeDto.total);
     viaje.subTotal = createViajeDto.subTotal;
     viaje.fecha_string = createViajeDto.fecha.toLocaleString('es-AR');
 
