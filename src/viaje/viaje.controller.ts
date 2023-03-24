@@ -88,7 +88,7 @@ export class ViajeController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.viajeService.remove(+id);
+  remove(@Param('id') id: number) {
+    return this.viajeService.remove(id);
   }
 }

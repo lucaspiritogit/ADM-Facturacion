@@ -18,8 +18,44 @@ export class ViajeService {
     private empresaRepository: Repository<Empresa>,
   ) {}
 
+  async getLocationName(
+    localidadId: number,
+    localidadRepository: Repository<Localidad>,
+  ) {
+    try {
+      let locationFound = await localidadRepository.findOne({
+        where: { id: localidadId },
+      });
+      return locationFound.nombre;
+    } catch (error) {
+      return '';
+    }
+  }
+
   async create(createViajeDto: CreateViajeDto) {
     const viaje = new Viaje();
+
+    let location0Found = await this.getLocationName(
+      createViajeDto.localidad0,
+      this.localidadRepository,
+    );
+    let location1Found = await this.getLocationName(
+      createViajeDto.localidad1,
+      this.localidadRepository,
+    );
+    let location2Found = await this.getLocationName(
+      createViajeDto.localidad2,
+      this.localidadRepository,
+    );
+    let location3Found = await this.getLocationName(
+      createViajeDto.localidad3,
+      this.localidadRepository,
+    );
+    let location4Found = await this.getLocationName(
+      createViajeDto.localidad4,
+      this.localidadRepository,
+    );
+
     try {
       let empresaFound = await this.empresaRepository.findOne({
         where: { id: createViajeDto.empresa },
@@ -34,46 +70,11 @@ export class ViajeService {
       }
     }
 
-    let location0Found = await this.localidadRepository.findOne({
-      where: { id: createViajeDto.localidad0 },
-    });
-    try {
-      let location1Found = await this.localidadRepository.findOne({
-        where: { id: createViajeDto.localidad1 },
-      });
-      viaje.localidad1 = location1Found.nombre;
-    } catch (error) {
-      viaje.localidad1 = '';
-    }
-
-    try {
-      let location2Found = await this.localidadRepository.findOne({
-        where: { id: createViajeDto.localidad2 },
-      });
-      viaje.localidad2 = location2Found.nombre;
-    } catch (error) {
-      viaje.localidad2 = '';
-    }
-
-    try {
-      let location3Found = await this.localidadRepository.findOne({
-        where: { id: createViajeDto.localidad3 },
-      });
-      viaje.localidad3 = location3Found.nombre;
-    } catch (error) {
-      viaje.localidad3 = '';
-    }
-
-    try {
-      let location4Found = await this.localidadRepository.findOne({
-        where: { id: createViajeDto.localidad4 },
-      });
-      viaje.localidad4 = location4Found.nombre;
-    } catch (error) {
-      viaje.localidad4 = '';
-    }
-
-    viaje.localidad0 = location0Found.nombre;
+    viaje.localidad0 = location0Found;
+    viaje.localidad1 = location1Found || '';
+    viaje.localidad2 = location2Found || '';
+    viaje.localidad3 = location3Found || '';
+    viaje.localidad4 = location4Found || '';
     viaje.nombreDelSolicitante = createViajeDto.nombreDelSolicitante;
     viaje.destino0 = createViajeDto.destino0;
     viaje.destino1 = createViajeDto.destino1;
@@ -87,11 +88,6 @@ export class ViajeService {
     viaje.saleDelDomicilio = createViajeDto.saleDelDomicilio;
     viaje.demora = createViajeDto.demora;
     viaje.peajes = parseInt(createViajeDto.peajes);
-    viaje.total = parseFloat(createViajeDto.total);
-    viaje.subTotal = createViajeDto.subTotal;
-    viaje.fecha_string = createViajeDto.fecha.toLocaleString('es-AR');
-
-    return await this.viajeRepository.save(viaje);
   }
 
   async findAll() {
@@ -108,7 +104,7 @@ export class ViajeService {
     return `This action updates a #${id} viaje`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} viaje`;
+  async remove(id: number) {
+    return await this.viajeRepository.delete(id);
   }
 }
