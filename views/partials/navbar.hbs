@@ -1,5 +1,4 @@
 <head>
-    <meta>
     <style>
         .dropdown {
             display: inline-block;
@@ -46,36 +45,27 @@
             margin: 0 10px;
             font-size: 18px;
         }
+
+        button {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 18px;
+            padding: 10px;
+        }
+
+        ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 
 <nav>
     <ul>
-        <a class="home" href="/">Inicio</a>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle dropbtn" type="button" id="dropdownMenuButton1"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                Listado de viajes
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a href="/viaje">Listado de viajes de Empresas</a></li>
-                <li>
-                    <a href="/viaje/particular">Listado de viajes de Particulares</a>
-                </li>
-            </ul>
-        </div>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle dropbtn" type="button" id="dropdownMenuButton2"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                Alta de Viaje
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a href="/empresa/nuevoViajeEmpresa">Nuevo viaje para empresa</a></li>
-                <li>
-                    <a href="/particular/nuevoViajeParticular">Nuevo viaje para un particular</a>
-                </li>
-            </ul>
-        </div>
+        <a class="home" href="/"><button>Inicio</button></a>
+        <a href="/empresa/nuevoViajeEmpresa"><button>Nuevo viaje</button></a>
+        <a href="/viaje"><button>Listado de viajes</button></a>
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle dropbtn" type="button" id="dropdownMenuButton3"
                 data-bs-toggle="dropdown" aria-expanded="false">

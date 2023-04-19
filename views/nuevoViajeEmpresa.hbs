@@ -8,6 +8,17 @@
     <meta charset="utf-8" />
     <title>ADM | Nuevo viaje</title>
     <link rel="stylesheet" href="/css/nuevoViajeEmpresa.css">
+    <style>
+        .pageTitle {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .date {
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
 </head>
 
 <header>
@@ -15,11 +26,11 @@
 </header>
 
 <body>
-    <h1>Nuevo viaje para empresa:</h1>
+    <h1 class="pageTitle">Nuevo viaje para empresa:</h1>
     <div class="nuevoViajeForm" style="display: flex; width: 100%;">
         <div style="display: flex; flex-direction: column; width: 50%;">
             <form action=" /viaje" method="POST" id="nuevoViaje">
-                <div>
+                <div class="date">
                     <label for="fecha">Fecha:</label>
                     <input type="date" name="fecha" id="fecha" required>
                 </div>

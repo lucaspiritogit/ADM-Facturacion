@@ -42,9 +42,6 @@ let nombreDelSolicitante = document.getElementById('nombreDelSolicitante');
 let subTotales = [];
 let sumaTotal = 0;
 let sumaDeTodaslasDemoras = 0;
-let valorConRegreso = 0;
-let valorSinRegreso = 0;
-
 submitViaje.disabled = true;
 
 demora0.addEventListener('change', () => {
