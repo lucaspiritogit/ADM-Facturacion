@@ -88,6 +88,10 @@ export class ViajeService {
     viaje.saleDelDomicilio = createViajeDto.saleDelDomicilio;
     viaje.demora = createViajeDto.demora;
     viaje.peajes = parseInt(createViajeDto.peajes);
+    viaje.subTotal = createViajeDto.subTotal;
+    viaje.total = parseInt(createViajeDto.total);
+
+    return await this.viajeRepository.save(viaje);
   }
 
   async findAll() {
