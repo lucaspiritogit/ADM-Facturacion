@@ -35,46 +35,27 @@ export class ViajeService {
   async create(createViajeDto: CreateViajeDto) {
     const viaje = new Viaje();
 
-    let location0Found = await this.getLocationName(
-      createViajeDto.localidad0,
-      this.localidadRepository,
-    );
-    let location1Found = await this.getLocationName(
-      createViajeDto.localidad1,
-      this.localidadRepository,
-    );
-    let location2Found = await this.getLocationName(
-      createViajeDto.localidad2,
-      this.localidadRepository,
-    );
-    let location3Found = await this.getLocationName(
-      createViajeDto.localidad3,
-      this.localidadRepository,
-    );
-    let location4Found = await this.getLocationName(
-      createViajeDto.localidad4,
-      this.localidadRepository,
-    );
+    const locations = [];
 
-    try {
-      let empresaFound = await this.empresaRepository.findOne({
-        where: { id: createViajeDto.empresa },
-      });
-      viaje.empresaNombre = empresaFound.nombre;
-      viaje.empresa = createViajeDto.empresa;
-    } catch (error: any) {
-      if (error instanceof TypeError) {
-        throw new TypeError('La empresa seleccionada no existe');
-      } else {
-        throw new Error(error);
-      }
+    for (let i = 0; i < 5; i++) {
+      const location = await this.getLocationName(
+        createViajeDto[`localidad${i}`],
+        this.localidadRepository,
+      );
+      locations.push(location);
     }
 
-    viaje.localidad0 = location0Found;
-    viaje.localidad1 = location1Found || '';
-    viaje.localidad2 = location2Found || '';
-    viaje.localidad3 = location3Found || '';
-    viaje.localidad4 = location4Found || '';
+    let empresa = await this.empresaRepository.findOne({
+      where: { id: createViajeDto.empresa },
+    });
+
+    viaje.empresaNombre = empresa.nombre;
+    viaje.empresa = createViajeDto.empresa;
+    viaje.localidad0 = locations[0] || '';
+    viaje.localidad1 = locations[1] || '';
+    viaje.localidad2 = locations[2] || '';
+    viaje.localidad3 = locations[3] || '';
+    viaje.localidad4 = locations[4] || '';
     viaje.nombreDelSolicitante = createViajeDto.nombreDelSolicitante;
     viaje.destino0 = createViajeDto.destino0;
     viaje.destino1 = createViajeDto.destino1;
@@ -89,7 +70,7 @@ export class ViajeService {
     viaje.demora = createViajeDto.demora;
     viaje.peajes = parseInt(createViajeDto.peajes);
     viaje.subTotal = createViajeDto.subTotal;
-    viaje.total = parseInt(createViajeDto.total);
+    viaje.total = createViajeDto.total;
 
     return await this.viajeRepository.save(viaje);
   }

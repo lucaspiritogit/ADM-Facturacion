@@ -246,7 +246,6 @@ calcularTotal.addEventListener('click', (e) => {
     subTotales.push(VALOR_REGRESO);
   }
 
-  // Saco todos los valores que sean 0.
   subTotales = subTotales.filter(function (value) {
     return value !== 0;
   });
@@ -305,6 +304,7 @@ let peajesTotal;
 function sumarPeajes() {
   if (peajes.value == '' || peajes.value == NaN) {
     peajes.value = '0';
+    return;
   }
   let peajesInputValue = peajes.value;
   let peajesArr = peajesInputValue.split(',');

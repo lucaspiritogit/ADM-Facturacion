@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, IsPositive, IsOptional } from 'class-validator';
 export class CreateViajeDto {
-  total: string;
+  total: number;
 
   subTotal: string;
 
@@ -18,8 +18,10 @@ export class CreateViajeDto {
   @IsOptional()
   localidad2: number;
 
+  @IsOptional()
   localidad3: number;
 
+  @IsOptional()
   localidad4: number;
 
   destino: string;

@@ -15,7 +15,6 @@ import {
 import { ViajeService } from './viaje.service';
 import { CreateViajeDto } from './dto/create-viaje.dto';
 import { UpdateViajeDto } from './dto/update-viaje.dto';
-import { BadRequestException, HttpException } from '@nestjs/common';
 
 @Controller('viaje')
 export class ViajeController {
@@ -61,18 +60,18 @@ export class ViajeController {
       const localidades = Object.keys(viaje).filter((key) =>
         key.startsWith('localidad'),
       );
-      let localidadesJoined = (viaje.localidad0 = localidades
+      viaje.localidad0 = localidades
         .map((localidad) => viaje[localidad])
         .filter(Boolean)
-        .join(','));
+        .join(', ');
 
       const destinos = Object.keys(viaje).filter((key) =>
         key.startsWith('destino'),
       );
-      let destinosJoined = (viaje.destino0 = destinos
+      viaje.destino0 = destinos
         .map((destino) => viaje[destino])
         .filter(Boolean)
-        .join(','));
+        .join(', ');
     });
     return { viajes };
   }

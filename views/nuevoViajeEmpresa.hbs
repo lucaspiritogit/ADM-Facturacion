@@ -18,6 +18,12 @@
             padding: 10px;
             margin: 10px;
         }
+
+        .nuevoViajeForm form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
     </style>
 </head>
 
@@ -26,7 +32,7 @@
 </header>
 
 <body>
-    <h1 class="pageTitle">Nuevo viaje para empresa:</h1>
+    <h1 class="pageTitle">Nuevo viaje:</h1>
     <div class="nuevoViajeForm" style="display: flex; width: 100%;">
         <div style="display: flex; flex-direction: column; width: 50%;">
             <form action=" /viaje" method="POST" id="nuevoViaje">
@@ -139,7 +145,7 @@
             <input type="checkbox" name="conLluvia" id="conLluvia" value="si">
             <label for="conBulto">¿Con bulto?</label>
             <input type="checkbox" name="conBulto" id="conBulto" value="si">
-            <label for="cadeteList">Cadete/s</label>
+            <label for="cadeteList">Cadete</label>
             <input type="text" name="cadetes" id="cadetes" required>
             <label for="peajes">Peajes</label>
             <input type="text" name="peajes" id="peajes" value="">
@@ -152,8 +158,10 @@
             <label for="total">Total:</label>
             <br>
             <input type="number" name="total" id="total" value="0" readonly>
-            <button class="m-5 btn btn-info" id="calcularTotal">Calcular Total</button>
-            <button id="submitViaje" class="m-2 btn btn-primary" type="submit">Registrar viaje</button>
+            <div>
+                <button class="m-5 btn btn-info" id="calcularTotal">Calcular Total</button>
+                <button id="submitViaje" class="m-2 btn btn-primary" type="submit">Registrar viaje</button>
+            </div>
         </div>
         </form>
     </div>
@@ -162,12 +170,5 @@
 <script>
 
 </script>
-<style>
-    .nuevoViajeForm form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-</style>
 
 </html>
