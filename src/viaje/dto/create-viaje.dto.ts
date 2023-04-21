@@ -1,14 +1,10 @@
-import { IsNotEmpty, IsNumber, IsPositive, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 export class CreateViajeDto {
   total: number;
 
   subTotal: string;
 
-  empresaId: number;
-
   empresa: number;
-
-  localidadId: number;
 
   localidad0: number;
 
@@ -23,8 +19,6 @@ export class CreateViajeDto {
 
   @IsOptional()
   localidad4: number;
-
-  destino: string;
 
   destino0: string;
 
@@ -52,8 +46,6 @@ export class CreateViajeDto {
 
   @IsNotEmpty()
   fecha: Date;
-
-  fecha_string: string;
 
   nombreDelSolicitante: string;
 }

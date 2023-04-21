@@ -25,7 +25,7 @@ export class ViajeController {
     try {
       await this.viajeService.create(createViajeDto);
     } catch (error: any) {
-      throw error;
+      console.log(error);
     }
 
     res.redirect('/viaje/viajeOk');
