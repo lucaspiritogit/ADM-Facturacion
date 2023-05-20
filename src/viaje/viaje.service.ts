@@ -7,6 +7,8 @@ import { Viaje } from './entities/viaje.entity';
 import { Localidad } from 'src/localidad/entities/localidad.entity';
 import { Empresa } from 'src/empresa/entities/empresa.entity';
 
+const MAX_LOCATIONS = 5;
+
 @Injectable()
 export class ViajeService {
   constructor(
@@ -37,7 +39,7 @@ export class ViajeService {
 
     const locations = [];
     let localidad: Localidad;
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < MAX_LOCATIONS; i++) {
       localidad = new Localidad();
       localidad.id = createViajeDto[`localidad${i}`];
       if (localidad.id == 0) {
@@ -47,11 +49,6 @@ export class ViajeService {
         createViajeDto[`localidad${i}`],
         this.localidadRepository,
       )
-      // const location = await this.getLocationName(
-      //   createViajeDto[`localidad${i}`],
-      //   this.localidadRepository,
-      // );
-      // locations.push(location);
       locations.push(localidad);
     }
 
@@ -62,8 +59,8 @@ export class ViajeService {
     viaje.empresaNombre = empresa.nombre;
     viaje.empresa = createViajeDto.empresa;
     viaje.localidades = locations;
-    let locationsName = locations.map((location) => location.nombre)
-    viaje.localidadArray = JSON.stringify(locationsName.toString());
+    let locationsName = locations.map((location) => location.nombre).join(', ');
+    viaje.localidadArray = locationsName;
     viaje.nombreDelSolicitante = createViajeDto.nombreDelSolicitante;
     viaje.destino0 = createViajeDto.destino0;
     viaje.destino1 = createViajeDto.destino1;

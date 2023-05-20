@@ -27,21 +27,6 @@ export class Viaje {
   localidadArray: string;
 
   @Column({ nullable: true })
-  localidad0: string;
-
-  @Column({ nullable: true })
-  localidad1: string;
-
-  @Column({ nullable: true })
-  localidad2: string;
-
-  @Column({ nullable: true })
-  localidad3: string;
-
-  @Column({ nullable: true })
-  localidad4: string;
-
-  @Column({ nullable: true })
   destino0: string;
 
   @Column({ nullable: true })
