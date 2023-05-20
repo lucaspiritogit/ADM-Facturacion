@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+
+import { Viaje } from 'src/viaje/entities/viaje.entity';
 
 @Entity()
 export class Localidad {

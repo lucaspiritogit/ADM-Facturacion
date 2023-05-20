@@ -36,13 +36,23 @@ export class ViajeService {
     const viaje = new Viaje();
 
     const locations = [];
-
+    let localidad: Localidad;
     for (let i = 0; i < 5; i++) {
-      const location = await this.getLocationName(
+      localidad = new Localidad();
+      localidad.id = createViajeDto[`localidad${i}`];
+      if (localidad.id == 0) {
+        continue;
+      }
+      localidad.nombre = await this.getLocationName(
         createViajeDto[`localidad${i}`],
         this.localidadRepository,
-      );
-      locations.push(location);
+      )
+      // const location = await this.getLocationName(
+      //   createViajeDto[`localidad${i}`],
+      //   this.localidadRepository,
+      // );
+      // locations.push(location);
+      locations.push(localidad);
     }
 
     let empresa = await this.empresaRepository.findOne({
@@ -51,11 +61,9 @@ export class ViajeService {
 
     viaje.empresaNombre = empresa.nombre;
     viaje.empresa = createViajeDto.empresa;
-    viaje.localidad0 = locations[0] || '';
-    viaje.localidad1 = locations[1] || '';
-    viaje.localidad2 = locations[2] || '';
-    viaje.localidad3 = locations[3] || '';
-    viaje.localidad4 = locations[4] || '';
+    viaje.localidades = locations;
+    let locationsName = locations.map((location) => location.nombre)
+    viaje.localidadArray = JSON.stringify(locationsName.toString());
     viaje.nombreDelSolicitante = createViajeDto.nombreDelSolicitante;
     viaje.destino0 = createViajeDto.destino0;
     viaje.destino1 = createViajeDto.destino1;
@@ -94,3 +102,4 @@ export class ViajeService {
     return await this.viajeRepository.delete(id);
   }
 }
+

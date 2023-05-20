@@ -5,8 +5,11 @@ import {
   ManyToMany,
   JoinColumn,
   ManyToOne,
+  OneToMany,
+  JoinTable,
 } from 'typeorm';
 import { Empresa } from 'src/empresa/entities/empresa.entity';
+import { Localidad } from 'src/localidad/entities/localidad.entity';
 
 @Entity()
 export class Viaje {
@@ -19,6 +22,9 @@ export class Viaje {
 
   @Column({ nullable: true })
   empresaNombre: string;
+
+  @Column({ nullable: true })
+  localidadArray: string;
 
   @Column({ nullable: true })
   localidad0: string;
@@ -82,4 +88,8 @@ export class Viaje {
 
   @Column({ nullable: true })
   nombreDelSolicitante: string;
+
+  @ManyToMany(() => Localidad)
+  @JoinTable()
+  localidades: Localidad[];
 }

@@ -55,15 +55,8 @@ export class ViajeController {
   @Render('listadoDeViajes')
   async findAll() {
     const viajes = await this.viajeService.findAll();
-
     viajes.map((viaje) => {
-      const localidades = Object.keys(viaje).filter((key) =>
-        key.startsWith('localidad'),
-      );
-      viaje.localidad0 = localidades
-        .map((localidad) => viaje[localidad])
-        .filter(Boolean)
-        .join(', ');
+      const localidades = viaje.localidades;
 
       const destinos = Object.keys(viaje).filter((key) =>
         key.startsWith('destino'),
