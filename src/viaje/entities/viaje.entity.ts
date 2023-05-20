@@ -25,6 +25,9 @@ export class Viaje {
 
   @Column({ nullable: true })
   localidadArray: string;
+  
+  @OneToMany(() => Localidad, (localidad) => localidad.id)
+  localidades: Localidad[];
 
   @Column({ nullable: true })
   destino0: string;
@@ -73,8 +76,4 @@ export class Viaje {
 
   @Column({ nullable: true })
   nombreDelSolicitante: string;
-
-  @ManyToMany(() => Localidad)
-  @JoinTable()
-  localidades: Localidad[];
 }

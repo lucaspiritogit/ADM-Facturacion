@@ -37,48 +37,53 @@ export class ViajeService {
   async create(createViajeDto: CreateViajeDto) {
     const viaje = new Viaje();
 
-    const locations = [];
-    let localidad: Localidad;
-    for (let i = 0; i < MAX_LOCATIONS; i++) {
-      localidad = new Localidad();
-      localidad.id = createViajeDto[`localidad${i}`];
-      if (localidad.id == 0) {
-        continue;
+    try {
+      const locations = [];
+      let localidad: Localidad;
+      for (let i = 0; i < MAX_LOCATIONS; i++) {
+        localidad = new Localidad();
+        localidad.id = createViajeDto[`localidad${i}`];
+        if (localidad.id == 0) {
+          continue;
+        }
+        localidad.nombre = await this.getLocationName(
+          createViajeDto[`localidad${i}`],
+          this.localidadRepository,
+        )
+        locations.push(localidad);
       }
-      localidad.nombre = await this.getLocationName(
-        createViajeDto[`localidad${i}`],
-        this.localidadRepository,
-      )
-      locations.push(localidad);
+  
+      let empresa = await this.empresaRepository.findOne({
+        where: { id: createViajeDto.empresa },
+      });
+  
+      viaje.empresaNombre = empresa.nombre;
+      viaje.empresa = createViajeDto.empresa;
+      let locationsName = locations.map((location) => location.nombre).join(', ');
+      viaje.localidadArray = locationsName;
+      viaje.nombreDelSolicitante = createViajeDto.nombreDelSolicitante;
+      viaje.destino0 = createViajeDto.destino0;
+      viaje.destino1 = createViajeDto.destino1;
+      viaje.destino2 = createViajeDto.destino2;
+      viaje.destino3 = createViajeDto.destino3;
+      viaje.destino4 = createViajeDto.destino4;
+      viaje.conLluvia = createViajeDto.conLluvia;
+      viaje.conBulto = createViajeDto.conBulto;
+      viaje.conRegreso = createViajeDto.conRegreso;
+      viaje.cadetes = createViajeDto.cadetes;
+      viaje.saleDelDomicilio = createViajeDto.saleDelDomicilio;
+      viaje.demora = createViajeDto.demora;
+      viaje.peajes = parseInt(createViajeDto.peajes);
+      viaje.subTotal = createViajeDto.subTotal;
+      viaje.total = createViajeDto.total;
+      viaje.fecha_string = createViajeDto.fecha.toLocaleString('es-AR');
+      return await this.viajeRepository.save(viaje);
+    } catch (error) {
+      console.log(error);
+      return { error: "Exploto todo porque no se programar"}
     }
+   
 
-    let empresa = await this.empresaRepository.findOne({
-      where: { id: createViajeDto.empresa },
-    });
-
-    viaje.empresaNombre = empresa.nombre;
-    viaje.empresa = createViajeDto.empresa;
-    viaje.localidades = locations;
-    let locationsName = locations.map((location) => location.nombre).join(', ');
-    viaje.localidadArray = locationsName;
-    viaje.nombreDelSolicitante = createViajeDto.nombreDelSolicitante;
-    viaje.destino0 = createViajeDto.destino0;
-    viaje.destino1 = createViajeDto.destino1;
-    viaje.destino2 = createViajeDto.destino2;
-    viaje.destino3 = createViajeDto.destino3;
-    viaje.destino4 = createViajeDto.destino4;
-    viaje.conLluvia = createViajeDto.conLluvia;
-    viaje.conBulto = createViajeDto.conBulto;
-    viaje.conRegreso = createViajeDto.conRegreso;
-    viaje.cadetes = createViajeDto.cadetes;
-    viaje.saleDelDomicilio = createViajeDto.saleDelDomicilio;
-    viaje.demora = createViajeDto.demora;
-    viaje.peajes = parseInt(createViajeDto.peajes);
-    viaje.subTotal = createViajeDto.subTotal;
-    viaje.total = createViajeDto.total;
-    viaje.fecha_string = createViajeDto.fecha.toLocaleString('es-AR');
-
-    return await this.viajeRepository.save(viaje);
   }
 
   async findAll() {

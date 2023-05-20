@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany, JoinTable, OneToMany } from 'typeorm';
 
 import { Viaje } from 'src/viaje/entities/viaje.entity';
 
@@ -12,4 +12,7 @@ export class Localidad {
 
   @Column()
   precio: number;
+
+  @OneToMany(() => Viaje, (viaje) => viaje.localidades, { cascade: true })
+  viajes: Viaje[];
 }

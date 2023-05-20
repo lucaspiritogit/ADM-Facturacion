@@ -34,10 +34,19 @@ export class ViajeController {
   @Get('viajeOk')
   @Render('viajeOk')
   async viajeOk() {
-    const idUltimoViajePersistido = await this.getLastIdFromDatabase();
-    const viaje = await this.viajeService.findOne(idUltimoViajePersistido);
-    const viajeJson = JSON.stringify(viaje);
-    return { viajeJson };
+    try {
+      const idUltimoViajePersistido = await this.getLastIdFromDatabase();
+      const viaje = await this.viajeService.findOne(idUltimoViajePersistido);
+      const viajeJson = JSON.stringify(viaje);
+      if (viaje == null) {
+        throw new Error('No se pudo persistir el viaje');
+      }
+      return { viajeJson };
+    } catch (error: any) {
+      console.log(error)
+      return { error: error.message };
+    }
+
   }
 
   async getLastIdFromDatabase() {
