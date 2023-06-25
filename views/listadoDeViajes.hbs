@@ -67,17 +67,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.1/xlsx.core.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
 <script>
     $(document).ready(function () {
-        var customTitle = 'Reporte de cuentas';
-
+        let customTitle = `Resumen de cuenta`;
         var table = $('#myTable').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 {
-                    extend: 'excelHtml5',
-                    title: `Resumen de cuenta`,
+                    title: customTitle,
                     text: 'Excel completo',
+                    className: 'excel-button'
+
                 },
                 {
                     extend: 'print',
@@ -89,6 +91,31 @@
                 }
             ],
         });
+        //let searchInput = $('.dataTables_filter input')[0];
+        //searchInput.placeholder = 'Buscar';
+
+        //$(table.table().container()).on('keyup', '.dataTables_filter input', function () {
+        //    let value = $('.dataTables_filter input').val();
+       //     console.log(value);
+       //     customTitle = `Resumen de cuenta - ${value}`;
+       ///=     table.button(0).title = customTitle;
+      //  });
+
+      
+    let searchInput = $('.dataTables_filter input')[0];
+    searchInput.placeholder = 'Buscar';
+
+    $(searchInput).on('keyup change', function () {
+        let value = $(this).val();
+        console.log(value);
+        customTitle = `Resumen de cuenta - ${value}`;
+    });
+
+    $('.excel-button').on('click', function () {
+        let filename = customTitle + '.xlsx';
+        let workbook = XLSX.utils.table_to_book($('#myTable')[0]);
+        XLSX.writeFile(workbook, filename);
+    });
 
 
     });
@@ -105,7 +132,6 @@
     const td = document.querySelectorAll('td');
     const form = document.querySelector('form');
     const input = document.querySelector('input');
-
 
 
 

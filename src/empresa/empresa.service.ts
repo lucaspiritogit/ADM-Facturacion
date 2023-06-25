@@ -22,9 +22,8 @@ export class EmpresaService {
 
   async findOne(id: number) {
     return await this.empresaRepository.findOne({
-      where: { id: id }
+      where: { id: id },
     });
-
   }
 
   update(id: number, updateEmpresaDto: UpdateEmpresaDto) {
